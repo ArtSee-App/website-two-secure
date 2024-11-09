@@ -23,6 +23,7 @@
                 :class="{ active: currentActiveIndex === index }"
                 @mouseenter="onHover(index)"
                 @mouseleave="onLeave"
+                @click="onClickBullet"
                 v-for="(bullet, index) in bullets"
                 :key="index"
               >
@@ -69,7 +70,7 @@ export default {
     };
   },
   methods: {
-      startCycling() {
+    startCycling() {
       if (!this.cycleInterval) { // Prevent multiple intervals
         this.cycleInterval = setInterval(() => {
           if (!this.isHovered) {
@@ -98,11 +99,14 @@ export default {
         }
       }, 1000); // 1 second delay
     },
+    onClickBullet() {
+      this.$router.push('/contact');
+    },
   },
   mounted() {
     this.startCycling();
   },
-  beforeUnmount() { // Updated from beforeDestroy to beforeUnmount
+  beforeUnmount() {
     this.stopCycling();
   },
 };
@@ -348,7 +352,6 @@ export default {
     font-size: 1rem;
   }
 }
-
 
 /* Style for the mobile-only message */
 .mobile-only-message {

@@ -79,13 +79,8 @@ export default {
       mediaPressBullets: [
         {
           emoji: "🏆",
-          text: "TU/e Contest, Winners of 2024 - ASML Makers Award for ArtVista",
+          text: "TU/e Contest 2024 - ASML Makers Award for ArtVista",
           link: "https://tuecontest.nl/"
-        },
-        {
-          emoji: "📺",
-          text: "Level Up Awards 2024, Nominee",
-          link: "https://www.levelup-event.nl/page/1427714"
         },
         {
           emoji: "🎤",
@@ -276,6 +271,7 @@ main {
   font-size: 1rem;
   font-weight: 300;
   line-height: 1.5;
+  text-decoration: underline; /* Added this line */
 }
 
 /* Responsive Adjustments */

@@ -21,7 +21,7 @@ export default {
       stats: [
         { value: '2.000.000+', label: 'Artworks' },
         { value: '10.000+', label: 'Artists' },
-        { value: 'Single', label: 'App' }
+        { value: 'One', label: 'App' }
       ]
     }
   }

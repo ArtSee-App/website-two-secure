@@ -7,7 +7,7 @@
           <h2 class="playground-title">How to use this Playground?</h2>
           <ol>
             <li>Upload a photo of a painting.</li>
-            <li>The API will detect paintings.</li>
+            <li>The API will detect the paintings.</li>
             <li>Click on any detected painting.</li>
             <li>The most similar paintings will be retrieved.</li>
           </ol>
@@ -46,7 +46,7 @@
               → Use your photo
             </button>
             <button class="demo-button" @click="fetchRandomPhoto">
-              → Try a random Photo
+              → Try a random photo
             </button>
             <!-- Hidden file input -->
             <input

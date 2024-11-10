@@ -1,5 +1,5 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/Home.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import Home from '../views/Home.vue';
 import Api from '@/views/Api.vue';
 import About from '@/views/About.vue';
 import Contact from '@/views/Contact.vue';
@@ -40,7 +40,11 @@ const routes = [
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
-})
+  routes,
+  scrollBehavior() {
+    // Always scroll to the top when navigating to a new route
+    return { top: 0 };
+  }
+});
 
-export default router
+export default router;

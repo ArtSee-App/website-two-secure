@@ -54,7 +54,7 @@ export default {
           left: '75%',
           width: '300px',
           rotation: 15,
-          blur: 2,
+          blur: 0.5,
           opacity: 1,
           borderRadius: '10px',
         },
@@ -64,8 +64,8 @@ export default {
           left: '80%',
           width: '250px',
           rotation: 10,
-          blur: 2,
-          opacity: 1,
+          blur: 1.5,
+          opacity: 0.8,
           borderRadius: '15px',
         },
         {
@@ -75,7 +75,7 @@ export default {
           width: '150px',
           rotation: 10,
           blur: 2.5,
-          opacity: 1,
+          opacity: 0.75,
           borderRadius: '25px',
         },
         {
@@ -84,8 +84,8 @@ export default {
           left: '20%',
           width: '300px',
           rotation: -10,
-          blur: 2,
-          opacity: 1,
+          blur: 1,
+          opacity: 0.85,
           borderRadius: '10px',
         },
         {
@@ -263,8 +263,7 @@ export default {
 
 /* Mobile Devices (max-width: 768px) */
 /* This is the breakpoint when the burger icon activates */
-/* Mobile Devices (max-width: 768px) */
-/* This is the breakpoint when the burger icon activates */
+
 @media screen and (max-width: 768px) {
   .app-design {
     flex-direction: column; /* Stack elements vertically */

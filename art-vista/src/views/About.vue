@@ -53,7 +53,7 @@ export default {
       aboutBullets: [
         {
           emoji: "🎓",
-          text: "ArtVista is an initiative from TU Eindhoven, aiming to bridge the technology gap between the worlds of art and AI."
+          text: "Found in Einhdoven by developers, aiming to bridge the technology gap between the worlds of art and AI."
         },
         {
           emoji: "🚀",

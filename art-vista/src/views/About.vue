@@ -53,7 +53,7 @@ export default {
       aboutBullets: [
         {
           emoji: "🎓",
-          text: "ArtVista is an initiative from TU Eindhoven, aiming to bridge the technology gap between the worlds of art and AI."
+          text: "Founded in 2022 in Eindhoven to merge art and technology, bridging the gap between these two worlds."
         },
         {
           emoji: "🚀",
@@ -61,19 +61,19 @@ export default {
         },
         {
           emoji: "🎡",
-          text: "We thought of creating an app to identify artworks would be fun. What started as a one week project took us 10-12 months!"
+          text: "What started as a side one-month project to identify artworks turned into a year-long journey of development."
         },
         {
           emoji: "💬",
-          text: "We got in touch with museums and realized that what our team member experienced wasn't unique to him."
+          text: "Talking to museums, we discovered that the challenge we set out to solve was shared by many visitors."
         },
         {
           emoji: "🔧",
-          text: "After nearly a year of developing the initial version, we chose to keep pushing forward by building the current version of the app."
+          text: "After nearly a year of refining the first version, we pushed forward to build the ArtVista you see today."
         },
         {
           emoji: "🤝",
-          text: "Today, ArtVista includes people from various industries such as Art, Museums, Fashion, and High Tech."
+          text: "ArtVista now brings together experts from Art, Museums, Fashion, and High Tech, shaping its future."
         }
       ],
       mediaPressBullets: [

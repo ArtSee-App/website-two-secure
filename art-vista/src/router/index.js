@@ -4,6 +4,7 @@ import Api from '@/views/Api.vue';
 import About from '@/views/About.vue';
 import Contact from '@/views/Contact.vue';
 import Terms from '@/views/Terms.vue';
+import Blog from '@/views/Blog.vue';
 
 const routes = [
   {
@@ -15,6 +16,11 @@ const routes = [
     path: '/api',
     name: 'Api',
     component: Api
+  },
+  {
+    path: '/blog',
+    name: 'Blog',
+    component: Blog
   },
   {
     path: '/about',

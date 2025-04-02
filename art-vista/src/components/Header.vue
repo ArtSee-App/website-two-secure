@@ -11,8 +11,10 @@
       <!-- Desktop Navigation Links -->
       <ul class="nav-links">
         <li><router-link to="/api">API</router-link></li>
+        
         <li><router-link to="/about">About</router-link></li>
         <li><router-link to="/contact">Contact</router-link></li>
+        <li><router-link to="/blog">Blog</router-link></li>
       </ul>
       <!-- Sign In Button -->
       <div class="auth-buttons">
@@ -36,6 +38,7 @@
       <div v-if="sidebarOpen" class="sidebar">
         <ul class="sidebar-links">
           <li><router-link to="/api" @click="closeSidebar">API</router-link></li>
+          <li><router-link to="/blog" @click="closeSidebar">Blog</router-link></li>
           <li><router-link to="/about" @click="closeSidebar">About</router-link></li>
           <li><router-link to="/contact" @click="closeSidebar">Contact</router-link></li>
           <li><a href="https://portal.artvista.app" target="_blank" rel="noopener noreferrer" @click="closeSidebar">Log in</a></li>

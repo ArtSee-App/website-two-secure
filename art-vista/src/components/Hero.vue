@@ -1,53 +1,56 @@
 <template>
   <div class="hero-container">
-    <!-- Left Section: Titles and Buttons -->
-    <div class="hero-titles">
-      <h1>
-        The <span class="highlight">Art Companion</span> You Are Looking For
-      </h1>
-      <ul>
-        <li>
-          🖼️ Understand <span class="highlight-small">Art</span> Better
-          <p class="description">Get quick answers for your art-related questions</p>
-        </li>
-        <li>
-          🤳 Scan and Discover
-          <p class="description">Instantly identify artworks with just a scan</p>
-        </li>
-        <li>
-          👩‍🎨 Connect with Artists
-          <p class="description">Bridge the gap between art lovers and creators</p>
-        </li>
-      </ul>
-      <!-- Action Buttons for the App -->
-      <div class="buttons">
-        <!-- Desktop Buttons -->
-        <div class="desktop-buttons">
-          <a href="https://apps.apple.com/nl/app/artvista-art-companion/id6503986684?l=en-GB" target="_blank"
-            rel="noopener noreferrer">
-            <button class="get-app-btn">
-              <font-awesome-icon :icon="['fab', 'apple']" class="button-icon" /> Available on iOS
-            </button>
-          </a>
-          <a href="https://play.google.com/store/apps/details?id=com.artvista&hl=en" target="_blank"
-            rel="noopener noreferrer">
-            <button class="get-app-btn">
-              <font-awesome-icon :icon="['fab', 'android']" class="button-icon android-icon" /> Available on
-              Android
-            </button>
-          </a>
-        </div>
+    <div class="content-wrapper">
+      <!-- Left Section: Titles and Buttons -->
+      <div class="hero-titles">
+        <h1>
+          The <span class="highlight">Art Companion</span><br>
+          You Are Looking For
+        </h1>
+        <ul>
+          <li>
+            🖼️ Understand <span class="highlight-small">Art</span> Better
+            <p class="description">Get quick answers for your art-related questions</p>
+          </li>
+          <li>
+            🤳 Scan and Discover
+            <p class="description">Instantly identify artworks with just a scan</p>
+          </li>
+          <li>
+            👩‍🎨 Connect with Artists
+            <p class="description">Bridge the gap between art lovers and creators</p>
+          </li>
+        </ul>
+        <!-- Action Buttons for the App -->
+        <div class="buttons">
+          <!-- Desktop Buttons -->
+          <div class="desktop-buttons">
+            <a href="https://apps.apple.com/nl/app/artvista-art-companion/id6503986684?l=en-GB" target="_blank"
+              rel="noopener noreferrer">
+              <button class="get-app-btn">
+                <font-awesome-icon :icon="['fab', 'apple']" class="button-icon" /> Available on iOS
+              </button>
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=com.artvista&hl=en" target="_blank"
+              rel="noopener noreferrer">
+              <button class="get-app-btn">
+                <font-awesome-icon :icon="['fab', 'android']" class="button-icon android-icon" /> Available on
+                Android
+              </button>
+            </a>
+          </div>
 
-        <!-- Mobile Single Button -->
-        <div class="mobile-button" v-if="isMobile">
-          <button class="get-app-btn" @click="redirectToAppStore">Get the App</button>
+          <!-- Mobile Single Button -->
+          <div class="mobile-button" v-if="isMobile">
+            <button class="get-app-btn" @click="redirectToAppStore">Get the App</button>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- Right Section: Promo Video Component -->
-    <div class="promo-video-container">
-      <PromoVideo />
+      <!-- Right Section: Promo Video Component -->
+      <div class="promo-video-container">
+        <PromoVideo />
+      </div>
     </div>
   </div>
 </template>
@@ -110,12 +113,12 @@ export default {
 /* Container styling for the hero section, using flexbox for layout */
 .hero-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   padding: 20px 30px;
   margin-top: 100px;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1600px;
   margin-left: auto;
   margin-right: auto;
   background-color: rgba(0, 0, 0, 0.3);
@@ -144,13 +147,23 @@ export default {
   padding: 1px;
 }
 
+/* Content wrapper to center the entire content block */
+.content-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
 /* Left section styling */
 .hero-titles {
   flex: 1;
   /* Allows the left section to take up available space */
   padding-right: 50px;
   /* Spacing between the titles and the video section */
-  max-width: 500px;
+  max-width: 550px;
   /* Maximum width for the left section */
 }
 
@@ -324,6 +337,11 @@ export default {
     margin-right: auto;
     box-sizing: border-box;
   }
+  
+  .content-wrapper {
+    flex-direction: column;
+    width: 100%;
+  }
 
   .promo-video-container {
     order: 1;
@@ -407,5 +425,14 @@ export default {
   justify-content: center;
   align-items: center;
   width: 100%;
+  max-height: 600px;
+  overflow: hidden;
+}
+
+/* Ensure the PromoVideo scales correctly within its container */
+.promo-video-container>* {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 </style>

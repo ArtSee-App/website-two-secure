@@ -58,7 +58,7 @@
   <div class="newsletter-section">
     <p v-if="!isSubscribed">Subscribe to our newsletter for the latest art insights</p>
     <p v-else class="success-message">Thank you for subscribing! We'll keep you updated with the latest art insights.</p>
-    <form v-if="!isSubscribed" name="newsletter" method="POST" data-netlify="true" class="newsletter-form" @submit.prevent="handleSubmit">
+    <form name="newsletter" method="POST" data-netlify="true" class="newsletter-form" @submit.prevent="handleSubmit">
       <input type="hidden" name="form-name" value="newsletter" />
       <div class="form-group">
         <input 

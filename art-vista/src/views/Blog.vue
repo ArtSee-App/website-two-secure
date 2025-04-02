@@ -13,9 +13,8 @@
       <div class="newsletter-container">
         <div class="newsletter-content">
           <h2>Subscribe to Our Newsletter</h2>
-          <p v-if="!isSubscribed">Be the first to know when we launch our blog!</p>
-          <p v-else class="success-message">Thank you for subscribing! We'll keep you updated with our latest blog posts.</p>
-          <form v-if="!isSubscribed" name="newsletter" method="POST" data-netlify="true" class="newsletter-form" @submit.prevent="handleSubmit">
+          <p>Be the first to know when we launch our blog!</p>
+          <form name="newsletter" method="POST" data-netlify="true" class="newsletter-form">
             <input type="hidden" name="form-name" value="newsletter" />
             <div class="form-group">
               <input 
@@ -24,7 +23,6 @@
                 placeholder="Enter your email" 
                 required
                 class="email-input"
-                v-model="email"
               />
               <button type="submit" class="submit-button">Subscribe</button>
             </div>
@@ -61,20 +59,6 @@ export default {
   components: {
     Header,
     Footer
-  },
-  data() {
-    return {
-      isSubscribed: false,
-      email: ''
-    }
-  },
-  methods: {
-    handleSubmit() {
-      // Here you would typically handle the form submission
-      // For now, we'll just simulate a successful subscription
-      this.isSubscribed = true;
-      this.email = '';
-    }
   }
 };
 </script>

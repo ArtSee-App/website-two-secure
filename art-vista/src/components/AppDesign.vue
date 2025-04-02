@@ -1,45 +1,50 @@
 <template>
-  <section class="app-design">
-    <!-- Background Images -->
-    <div class="background-images">
-      <img
-        v-for="(image, index) in backgroundImages"
-        :key="index"
-        :src="image.src"
-        class="background-image"
-        :style="{
-          top: image.top,
-          left: image.left,
-          width: image.width,
-          '--rotation': image.rotation + 'deg',
-          filter: 'blur(' + image.blur + 'px)',
-          opacity: image.opacity,
-          borderRadius: image.borderRadius,
-        }"
-        alt="Background Art"
-      />
-    </div>
-
-    <!-- App Description Text -->
-    <div class="app-description">
-      <p>
-        ArtVista is the most advanced art app, dedicated to bringing art to your fingertips -
-        while keeping the world of art interesting and fun for you 🥳🥳🥳
-      </p>
-    </div>
-
-    <!-- iPhone Wrapper -->
-    <div class="iphone-wrapper">
-      <div class="iphone">
-        <!-- iPhone Image -->
+  <div class="app-design-section">
+    <h2 class="section-title">Your Personal Art Guide</h2>
+    <p class="section-subtitle">With every touch, ArtVista will personalize your art experience</p>
+    
+    <section class="app-design">
+      <!-- Background Images -->
+      <div class="background-images">
         <img
-          :src="currentIphoneImage"
-          alt="iPhone Design"
-          class="iphone-image"
+          v-for="(image, index) in backgroundImages"
+          :key="index"
+          :src="image.src"
+          class="background-image"
+          :style="{
+            top: image.top,
+            left: image.left,
+            width: image.width,
+            '--rotation': image.rotation + 'deg',
+            filter: 'blur(' + image.blur + 'px)',
+            opacity: image.opacity,
+            borderRadius: image.borderRadius,
+          }"
+          alt="Background Art"
         />
       </div>
-    </div>
-  </section>
+
+      <!-- App Description Text -->
+      <div class="app-description">
+        <p>
+          ArtVista is the most advanced art app, dedicated to bringing art to your fingertips -
+          while keeping the world of art interesting and fun for you 🥳🥳🥳
+        </p>
+      </div>
+
+      <!-- iPhone Wrapper -->
+      <div class="iphone-wrapper">
+        <div class="iphone">
+          <!-- iPhone Image -->
+          <img
+            :src="currentIphoneImage"
+            alt="iPhone Design"
+            class="iphone-image"
+          />
+        </div>
+      </div>
+    </section>
+  </div>
 </template>
 
 <script>
@@ -55,7 +60,7 @@ export default {
           width: '300px',
           rotation: 15,
           blur: 0.5,
-          opacity: 1,
+          opacity: 0.8,
           borderRadius: '10px',
         },
         {
@@ -65,7 +70,7 @@ export default {
           width: '250px',
           rotation: 10,
           blur: 1.5,
-          opacity: 0.8,
+          opacity: 0.6,
           borderRadius: '15px',
         },
         {
@@ -75,7 +80,7 @@ export default {
           width: '150px',
           rotation: 10,
           blur: 2.5,
-          opacity: 0.75,
+          opacity: 0.5,
           borderRadius: '25px',
         },
         {
@@ -85,7 +90,7 @@ export default {
           width: '300px',
           rotation: -10,
           blur: 1,
-          opacity: 0.85,
+          opacity: 0.7,
           borderRadius: '10px',
         },
         {
@@ -95,7 +100,7 @@ export default {
           width: '350px',
           rotation: -15,
           blur: 2,
-          opacity: 1,
+          opacity: 0.8,
           borderRadius: '35px',
         },
       ],
@@ -132,6 +137,38 @@ export default {
 </script>
 
 <style scoped>
+/* Section wrapper */
+.app-design-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: 100px;
+}
+
+/* Section title */
+.section-title {
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  text-align: center;
+}
+
+/* Section subtitle */
+.section-subtitle {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 1.1rem;
+  font-weight: 400;
+  margin-bottom: 50px;
+  text-align: center;
+  letter-spacing: 0.5px;
+  line-height: 1.5;
+  max-width: 600px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
 /* App Design Section */
 .app-design {
   position: relative; /* Establish positioning context for absolute elements */
@@ -139,9 +176,35 @@ export default {
   flex-direction: row; /* Horizontal layout by default */
   align-items: center;
   justify-content: center;
-  margin: 50px 0;
+  margin: 0; /* No margin */
   text-align: left;
-  padding-bottom: 150px; /* Added padding to create space at the bottom */
+  min-height: 800px; /* Added minimum height */
+  padding: 40px; /* Increased padding */
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+  overflow: visible; /* Changed to visible to show stroke */
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
+  z-index: 1;
+  width: 100%; /* Ensure container takes full width */
+}
+
+.app-design::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(45deg, #03C1FD, #B902A7, #03C1FD);
+  background-size: 200% 200%;
+  border-radius: 21px;
+  z-index: -1;
+  animation: gradientAnimation 5s linear infinite;
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  padding: 1px;
 }
 
 /* Background Images Container */
@@ -151,7 +214,8 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 0; /* Place behind other content */
+  z-index: -2; /* Place behind the container and its stroke */
+  overflow: hidden; /* Ensure images stay within container */
 }
 
 /* Background Image Styles */
@@ -160,6 +224,9 @@ export default {
   /* Opacity and border-radius are now set inline via :style binding */
   transition: transform 0.3s ease-in-out;
   transform: rotate(var(--rotation));
+  filter: brightness(0.7); /* Make images darker */
+  max-width: 100%; /* Ensure images don't overflow */
+  max-height: 100%; /* Ensure images don't overflow */
 }
 
 /* Different floating patterns for each image */
@@ -216,6 +283,7 @@ export default {
   line-height: 1.3;
   text-align: left;
   z-index: 1; /* Place above background images */
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5), 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 /* iPhone Wrapper with Animated Gradient Border */

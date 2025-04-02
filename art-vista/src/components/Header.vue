@@ -99,7 +99,7 @@ header {
   left: 50%;
   transform: translateX(-50%);
   width: 90%;
-  max-width: 1200px;
+  max-width: 1400px;
   padding: 10px 5px;
   background: transparent;
   border-radius: 15px;
@@ -134,7 +134,7 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 0 5px;
   position: relative;

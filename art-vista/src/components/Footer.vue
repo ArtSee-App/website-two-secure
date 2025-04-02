@@ -1,7 +1,7 @@
 <!-- src/components/Footer.vue -->
 <template>
   <footer>
-    <p>&copy; 2024 Vista Technologies BV</p>
+    <p>&copy; 2025 Vista Technologies BV</p>
     <ul>
       <li><router-link to="/terms">Terms and Conditions</router-link></li>
       <li><a href="https://www.linkedin.com/company/artvista-app/" target="_blank"

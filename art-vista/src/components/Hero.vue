@@ -60,7 +60,7 @@
     <p v-else class="success-message">Thank you for subscribing! We'll keep you updated with the latest art insights.</p>
     <form name="newsletter" method="POST" data-netlify="true" class="newsletter-form" @submit.prevent="handleSubmit">
       <input type="hidden" name="form-name" value="newsletter" />
-      <div class="form-group">
+      <div class="form-group" v-if="!isSubscribed">
         <input 
           type="email" 
           name="email" 
@@ -89,7 +89,6 @@ export default {
   components: {
     PromoVideo,
     FontAwesomeIcon,
-
   },
   data() {
     return {
@@ -631,6 +630,8 @@ export default {
   letter-spacing: -0.2px;
   font-weight: 500;
   animation: fadeIn 0.5s ease;
+  text-align: center;
+  width: 100%;
 }
 
 @keyframes fadeIn {

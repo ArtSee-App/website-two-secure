@@ -13,16 +13,18 @@
       <div class="newsletter-container">
         <div class="newsletter-content">
           <h2>Subscribe to Our Newsletter</h2>
-          <p>Be the first to know when we launch our blog!</p>
-          <form name="newsletter" method="POST" data-netlify="true" class="newsletter-form">
+          <p v-if="!isSubscribed">Be the first to know when we launch our blog!</p>
+          <p v-else class="success-message">Thank you for subscribing! We'll keep you updated with the latest art insights.</p>
+          <form name="newsletter" method="POST" data-netlify="true" class="newsletter-form" @submit.prevent="handleSubmit">
             <input type="hidden" name="form-name" value="newsletter" />
-            <div class="form-group">
+            <div class="form-group" v-if="!isSubscribed">
               <input 
                 type="email" 
                 name="email" 
                 placeholder="Enter your email" 
                 required
                 class="email-input"
+                v-model="email"
               />
               <button type="submit" class="submit-button">Subscribe</button>
             </div>
@@ -59,6 +61,20 @@ export default {
   components: {
     Header,
     Footer
+  },
+  data() {
+    return {
+      isSubscribed: false,
+      email: ''
+    }
+  },
+  methods: {
+    handleSubmit() {
+      // Here you would typically handle the form submission
+      // For now, we'll just simulate a successful subscription
+      this.isSubscribed = true;
+      this.email = '';
+    }
   }
 };
 </script>
@@ -218,6 +234,10 @@ main {
   border-radius: 20px;
   max-width: 800px;
   width: 100%;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   backdrop-filter: blur(10px);
   position: relative;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
@@ -236,6 +256,10 @@ main {
   color: #e9e9e9;
   font-size: 1.1rem;
   margin-bottom: 25px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .newsletter-form {
@@ -317,6 +341,7 @@ main {
   }
 
   .newsletter-content {
+    min-height: 180px;
     padding: 30px 20px;
   }
 }
@@ -331,6 +356,8 @@ main {
   letter-spacing: -0.2px;
   font-weight: 500;
   animation: fadeIn 0.5s ease;
+  text-align: center;
+  width: 100%;
 }
 
 @keyframes fadeIn {

@@ -98,7 +98,7 @@ export default {
   }
 
   .stats {
-    margin: 40px 0; /* Add more vertical margin for mobile phones */
+    margin: 80px 0 40px 0; /* Increased top margin for mobile phones */
     justify-content: center; /* Center the stats */
     flex-direction: row; /* Ensure row direction */
     flex-wrap: wrap; /* Allow wrapping */

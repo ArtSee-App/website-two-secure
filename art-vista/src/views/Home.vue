@@ -15,7 +15,7 @@ import Header from '@/components/Header.vue'
 import Hero from '@/components/Hero.vue'
 import Stats from '@/components/Stats.vue'
 import AppDesign from '@/components/AppDesign.vue'
-import WebDesign from '@/components/WebDesign.vue'
+//import WebDesign from '@/components/WebDesign.vue'
 import Footer from '@/components/Footer.vue'
 
 export default {
@@ -25,7 +25,7 @@ export default {
     Hero,
     Stats,
     AppDesign,
-    WebDesign,
+    //WebDesign,
     Footer
   }
 }

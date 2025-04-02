@@ -1,8 +1,7 @@
 <template>
     <div class="web-design">
       <h1>
-        <span class="intro">{{ intro }}</span>
-        <span class="portal">{{ portal }}</span>
+        <span class="portal-text">View, Manage, Control</span>
       </h1>
       <div>
         <span class="description">{{ description }}</span>
@@ -33,22 +32,6 @@
       <div class="imac-container">
         <img :src="imacImage" alt="iMac" class="imac-image" />
       </div>
-      
-      <!-- Yeni Eklenen Butonlar -->
-      <div class="additional-buttons">
-        <button class="info-button" @click="handleRoadMap">
-          <span class="emoji">🗺️</span>
-          <span class="button-text">{{ roadmap_button }}</span>
-        </button>
-        <button class="info-button" @click="handleMoreInfo('artists')">
-          <span class="emoji">🎨</span>
-          <span class="button-text">{{ artist_button }}</span>
-        </button>
-        <button class="info-button" @click="handleMoreInfo('museums')">
-          <span class="emoji">🏛️</span>
-          <span class="button-text">{{museum_button}}</span>
-        </button>
-      </div>
     </div>
   </template>
   
@@ -57,13 +40,10 @@
     name: "WebDesign",
     data() {
       return {
-        intro: "Introducing",
-        portal: "ArtVista Portal",
+        intro: "View",
+        portal: "Manage",
         description:
-          "Keep all your artworks in one place, completely organized, hassle-free and it’s 100% free for artists!",
-        artist_button: "Register as an Artist & Individual",
-        museum_button: "Contact for Museums & Institutes",
-        roadmap_button: "ArtVista's Road Map and Plans for the Portal",
+          "Keep all your artworks in one place, completely organized, hassle-free and it's 100% free for artists!",
         imacImage: require('@/assets/imac.png'), // iMac görüntüsünü içe aktarıyoruz
         backgroundImages: [
           {
@@ -154,29 +134,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap; /* Satır taşmasını önlemek için */
+    flex-wrap: wrap;
     position: relative;
-    z-index: 1; /* Arka plan resimlerinin üzerinde yer alır */
+    z-index: 1;
+    gap: 15px;
   }
   
-  /* "Introducing" Bölümü */
-  .intro {
-    font-weight: 100; /* Daha düşük ağırlık */
-    font-style: italic; /* İtalik */
-    color: #ffffff; /* Beyaz renk */
-    margin-right: 15px; /* İki kelime arasında biraz boşluk */
-  }
-  
-  /* "ArtVista Portal" Bölümü */
-  .portal {
-    font-weight: 700; /* Daha kalın */
-    font-style: normal; /* Normal yazı stili */
-    background: linear-gradient(90deg, #1D88F0, #C002B0);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    /* Alternatif tarayıcı desteği için ek prefixler */
-    background-clip: text;
-    color: transparent;
+  /* Portal Text Stili */
+  .portal-text {
+    font-weight: 500;
+    font-style: normal;
+    color: rgba(255, 255, 255, 0.9);
   }
   
   /* Açıklama Metni */
@@ -203,91 +171,12 @@
     height: auto;
   }
   
-  /* Yeni Eklenen Butonlar */
-  .additional-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-    margin-top: 30px; /* iMac görüntüsü ile butonlar arasında boşluk */
-  }
-  
-  .info-button {
-    display: flex;
-    align-items: center;
-    padding: 15px 25px;
-    background: rgba(255, 255, 255, 0.1);
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    color: #e9e9e9;
-    font-size: 1rem;
-    transition: transform 0.3s ease, background 0.3s ease;
-    width: 280px;
-    min-height: 80px;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .info-button::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, #03C1FD, #B902A7, #fda503);
-    background-size: 200% 200%;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    z-index: -1;
-    border-radius: 12px; /* Butonla uyumlu köşe yuvarlama */
-  }
-  
-  /* Hover Effects for Info Button */
-  .info-button:hover::before {
-    opacity: 1;
-    animation: gradientAnimation 5s linear infinite;
-  }
-  
-  .info-button:hover,
-  .info-button.active {
-    transform: scale(1.05);
-    background: rgba(255, 255, 255, 0.2);
-  }
-  
-  /* Emoji Styling */
-  .info-button .emoji {
-    font-size: 1.5rem; /* Emoji büyüklüğü */
-    margin-right: 15px; /* Emoji ile metin arasındaki boşluk */
-    flex-shrink: 0;
-  }
-  
-  /* Text Styling */
-  .info-button .button-text {
-    font-size: 1rem;
-    font-weight: 500;
-    text-align: left;
-  }
-  
-  /* Gradient Animation */
-  @keyframes gradientAnimation {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
-  }
-  
   /* Responsive Tasarım */
   @media (max-width: 768px) {
     .web-design h1 {
       font-size: 2rem;
-      flex-direction: row; /* Yatay hizalama devam eder */
+      flex-direction: row;
+      gap: 10px;
     }
   
     .description {
@@ -301,46 +190,19 @@
     .background-image {
       width: 120px !important; /* Arka plan resimlerinin boyutunu küçült */
     }
-  
-    .additional-buttons {
-      gap: 15px;
-      margin-top: 20px;
-      align-items: center; /* Butonları ortalamak için eklendi */
-    }
-  
-    .info-button {
-      width: 100%;
-      max-width: 350px;
-      padding: 15px 10px;
-      font-size: 0.9rem;
-      min-height: 70px;
-    }
-  
-    .info-button .emoji {
-      font-size: 1.3rem;
-      margin-right: 10px;
-    }
-  
-    .info-button .button-text {
-      font-size: 0.9rem;
-    }
-  
-    /* Arka Plan Görsellerini Mobilde Gizle */
-    .background-images {
-      display: none;
-    }
   }
   
   @media (max-width: 480px) {
     .web-design h1 {
       font-size: 1.8rem;
-      flex-direction: column; /* Dikey hizalama */
-      align-items: center; /* Merkezi hizalama */
+      flex-direction: row;
+      align-items: center;
+      gap: 8px;
     }
   
-    .intro {
-      margin-right: 0; /* Sağ boşluğu kaldır */
-      margin-bottom: 10px; /* Alt boşluk ekle */
+    .portal-text {
+      margin-right: 0;
+      margin-bottom: 0;
     }
   
     .description {
@@ -349,33 +211,6 @@
   
     .imac-image {
       width: 95%;
-    }
-  
-    .background-image {
-      width: 100px !important; /* Arka plan resimlerinin boyutunu daha da küçült */
-    }
-  
-    .additional-buttons {
-      flex-direction: column;
-      gap: 10px;
-      align-items: center; /* Butonları ortalamak için eklendi */
-    }
-  
-    .info-button {
-      width: 100%;
-      max-width: 300px;
-      padding: 10px 5px;
-      font-size: 0.8rem;
-      min-height: 60px;
-    }
-  
-    .info-button .emoji {
-      font-size: 1.2rem;
-      margin-right: 8px;
-    }
-  
-    .info-button .button-text {
-      font-size: 0.8rem;
     }
   
     /* Arka Plan Görsellerini Mobilde Gizle */

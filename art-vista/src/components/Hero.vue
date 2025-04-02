@@ -123,6 +123,8 @@ export default {
   backdrop-filter: blur(10px);
   position: relative;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
+  z-index: 1;
 }
 
 .hero-container::before {
@@ -311,46 +313,22 @@ export default {
     background-color: #1a0a1f;
     border: 2px solid #6A1D85;
   }
-}
-
-.android-icon {
-  color: green;
-}
-
-/* Additional Media Query for Smaller Mobile Devices (Optional) */
-@media screen and (max-width: 480px) {
-  :root {
-    --promo-title-margin: 20px;
-  }
   
-  .hero-container {
-    padding: 15px 15px;
-    margin-top: 80px;
-  }
-}
-
-/* Container styling for the promo video section */
-.promo-video-container {
-  flex: 1.2;
-  aspect-ratio: 4 / 3;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
-
-/* Responsive design for screens where buttons might not fit horizontally */
-@media screen and (max-width: 768px) {
   .hero-container {
     flex-direction: column;
     padding: 20px 20px;
     margin-top: 80px;
+    width: calc(100% - 20px);
+    max-width: none;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
   }
 
   .promo-video-container {
     order: 1;
     width: 100%;
-    max-width: 600px;
+    max-width: 100%;
   }
 
   .hero-titles {
@@ -358,6 +336,7 @@ export default {
     padding-right: 0;
     max-width: 100%;
     text-align: center;
+    width: 100%;
   }
 
   /* Ensure the PromoVideo scales correctly within its container */
@@ -399,5 +378,34 @@ export default {
     margin-right: 8px;
     vertical-align: middle;
   }
+}
+
+/* Additional Media Query for Smaller Mobile Devices (Optional) */
+@media screen and (max-width: 480px) {
+  :root {
+    --promo-title-margin: 20px;
+  }
+  
+  .hero-container {
+    padding: 15px 15px;
+    margin-top: 80px;
+    width: calc(100% - 10px);
+    max-width: none;
+    box-sizing: border-box;
+  }
+}
+
+.android-icon {
+  color: green;
+}
+
+/* Container styling for the promo video section */
+.promo-video-container {
+  flex: 1.2;
+  aspect-ratio: 4 / 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 </style>

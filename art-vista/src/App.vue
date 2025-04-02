@@ -26,6 +26,9 @@ html {
   /* For Firefox */
   scrollbar-color: #6f2da8 #1a0933;
   /* Thumb and track color */
+  min-height: 100%;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 #app {
@@ -33,6 +36,9 @@ html {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
+  box-sizing: border-box;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
 /* Webkit browsers (Chrome, Edge, Safari) */
@@ -56,5 +62,12 @@ body::-webkit-scrollbar-thumb {
 body::-webkit-scrollbar-thumb:hover {
   background-color: #5a2299;
   /* Darker purple on hover */
+}
+
+@media (max-width: 768px) {
+  #app {
+    padding: 0 10px;
+    width: 100%;
+  }
 }
 </style>

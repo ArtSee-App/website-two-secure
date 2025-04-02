@@ -3,16 +3,21 @@
   <header :class="{ scrolled }">
     <nav>
       <div class="logo-container">
-        <img src="@/assets/logo.png" alt="ArtVista Logo" class="logo" />
-        <span class="logo-text">ArtVista</span>
+        <router-link to="/" class="logo-link">
+          <img src="@/assets/logo.png" alt="ArtVista Logo" class="logo" />
+          <span class="logo-text">ArtVista</span>
+        </router-link>
       </div>
       <!-- Desktop Navigation Links -->
       <ul class="nav-links">
-        <li><router-link to="/">Home</router-link></li>
         <li><router-link to="/api">API</router-link></li>
         <li><router-link to="/about">About</router-link></li>
         <li><router-link to="/contact">Contact</router-link></li>
       </ul>
+      <!-- Sign In Button -->
+      <div class="auth-buttons">
+        <a href="https://portal.artvista.app" target="_blank" rel="noopener noreferrer" class="sign-in-button">Log in</a>
+      </div>
       <!-- Animated Hamburger Menu Button -->
       <button
         class="hamburger"
@@ -30,11 +35,10 @@
     <transition name="slide">
       <div v-if="sidebarOpen" class="sidebar">
         <ul class="sidebar-links">
-          <li><router-link to="/" @click="closeSidebar">Home</router-link></li>
           <li><router-link to="/api" @click="closeSidebar">API</router-link></li>
           <li><router-link to="/about" @click="closeSidebar">About</router-link></li>
           <li><router-link to="/contact" @click="closeSidebar">Contact</router-link></li>
-          
+          <li><a href="https://portal.artvista.app" target="_blank" rel="noopener noreferrer" @click="closeSidebar">Log in</a></li>
         </ul>
       </div>
     </transition>
@@ -96,9 +100,9 @@ header {
   transform: translateX(-50%);
   width: 90%;
   max-width: 1200px;
-  padding: 5px 10px;
+  padding: 10px 5px;
   background: transparent;
-  border-radius: 20px;
+  border-radius: 15px;
   z-index: 1000;
   transition: all 0.3s ease;
   overflow: hidden; /* Ensure pseudo-element is contained */
@@ -132,12 +136,21 @@ nav {
   align-items: center;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 5px;
+  position: relative;
 }
 
 .logo-container {
   display: flex;
   align-items: center;
+  margin-left: 0;
+}
+
+.logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding-left: 0;
 }
 
 .logo {
@@ -155,6 +168,30 @@ nav {
 .nav-links {
   display: flex;
   list-style-type: none;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.auth-buttons {
+  display: flex;
+  align-items: center;
+  margin-right: 0;
+}
+
+.sign-in-button {
+  color: #010820;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 8px 16px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.sign-in-button:hover {
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .nav-links li {
@@ -327,6 +364,10 @@ header.scrolled::before {
 /* Responsive design */
 @media screen and (max-width: 767px) {
   .nav-links {
+    display: none;
+  }
+
+  .auth-buttons {
     display: none;
   }
 

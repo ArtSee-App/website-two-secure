@@ -111,27 +111,42 @@ export default {
 .hero-container {
   display: flex;
   justify-content: space-between;
-  /* Space between the two main sections */
   align-items: center;
-  /* Center align the items vertically */
-  padding: 40px 0;
-  /* Top and bottom padding */
-  margin-top: 50px;
-  /* Added margin to prevent overlap with the fixed header */
+  padding: 20px 30px;
+  margin-top: 100px;
   width: 100%;
   max-width: 1200px;
-  /* Maximum width of the container */
   margin-left: auto;
-  /* Center the container horizontally */
   margin-right: auto;
-  /* Center the container horizontally */
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  position: relative;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.hero-container::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(45deg, #03C1FD, #B902A7, #03C1FD);
+  background-size: 200% 200%;
+  border-radius: 21px;
+  z-index: -1;
+  animation: gradientAnimation 5s linear infinite;
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  padding: 1px;
 }
 
 /* Left section styling */
 .hero-titles {
   flex: 1;
   /* Allows the left section to take up available space */
-  padding-right: 100px;
+  padding-right: 50px;
   /* Spacing between the titles and the video section */
   max-width: 500px;
   /* Maximum width for the left section */
@@ -145,8 +160,11 @@ export default {
   /* Space below the title */
   color: white;
   /* White color for the entire title */
-  font-weight: 400;
-  /* Medium weight for the title */
+  font-weight: 700;
+  /* Bolder weight for the title */
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 /* Styling for the gradient text part of the title */
@@ -163,7 +181,9 @@ export default {
   animation: gradientAnimation 5s linear infinite;
   /* Animation applied */
   font-weight: 900;
-  /* Bold weight for the highlighted text */
+  /* Extra bold weight for the highlighted text */
+  letter-spacing: -0.5px;
+  text-shadow: none;
 }
 
 /* Keyframes for the gradient animation */
@@ -190,6 +210,8 @@ export default {
   -webkit-text-fill-color: transparent;
   animation: gradientAnimation 5s linear infinite;
   font-weight: 900;
+  letter-spacing: -0.5px;
+  text-shadow: none;
 }
 
 /* List container styling */
@@ -208,8 +230,9 @@ export default {
   /* Font size for list items */
   position: relative;
   /* Required for additional styling */
-  font-weight: 300;
-  /* Light font weight for list items */
+  font-weight: 500;
+  /* Medium weight for list items */
+  letter-spacing: -0.2px;
 }
 
 /* Description text under each list item */
@@ -252,206 +275,129 @@ export default {
 
 /* Styling for the "Get App" buttons */
 .get-app-btn {
-  background-color: #6A1D85;
-  /* Primary button color */
+  background-color: #1a0a1f;
   color: white;
-  /* White text color */
-  padding: 10px 20px;
-  /* Padding for the buttons */
-  border: none;
-  /* No border */
+  padding: 12px 24px;
+  border: 2px solid #6A1D85;
   border-radius: 10px;
-  /* Rounded corners */
   cursor: pointer;
-  /* Pointer cursor on hover */
-  transition: transform 0.3s;
-  /* Smooth transition for hover effects */
+  transition: all 0.3s ease;
   font-weight: 500;
-  /* Medium weight for button text */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  /* Box-shadow for better visual appeal */
   flex: 0 0 auto;
-  /* Prevent buttons from stretching */
   max-width: 300px;
-  /* Maintain maximum width */
   width: auto;
-  /* Allow buttons to size based on content */
-}
-
-/* Keyframes for the button gradient animation */
-@keyframes buttonGradientAnimation {
-  0% {
-    background-color: #6A1D85;
-  }
-
-  33% {
-    background-color: #B902A7;
-  }
-
-  66% {
-    background-color: #fd7403;
-  }
-
-  100% {
-    background-color: #6A1D85;
-  }
+  position: relative;
+  overflow: hidden;
 }
 
 /* Hover state for desktop buttons */
 @media screen and (min-width: 769px) {
   .get-app-btn:hover {
-    animation: buttonBackgroundChange 2s linear infinite;
-    /* Background color animation on hover */
-    transform: scale(1.05);
-    /* Slightly increased scale */
-  }
-}
-
-/* Animation for Button Colors on Hover for Desktop */
-@keyframes buttonBackgroundChange {
-  0% {
     background-color: #6A1D85;
-  }
-
-  33% {
-    background-color: #B902A7;
-  }
-
-  66% {
-    background-color: #fd7403;
-  }
-
-  100% {
-    background-color: #6A1D85;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(106, 29, 133, 0.3);
   }
 }
 
-/* Container styling for the promo video section */
-.promo-video-container {
-  flex: 1;
-  /* Allows the promo video section to take up available space */
-  aspect-ratio: 4 / 3;
-  /* Maintain 4:3 aspect ratio */
-  display: flex;
-  justify-content: center;
-  /* Center align horizontally */
-  align-items: center;
-  /* Center align vertically */
-  margin: var(--promo-title-margin);
-  /* Margin adjustment */
-}
-
-/* Responsive design for screens where buttons might not fit horizontally */
+/* Mobile button styling */
 @media screen and (max-width: 768px) {
-  .hero-container {
-    flex-direction: column;
-    /* Stack items vertically */
-    padding: 30px 0px;
-    /* Reduce padding */
-  }
-
-  .promo-video-container {
-    order: 1;
-    /* First in order */
-    margin-bottom: var(--promo-title-margin);
-    /* Space below the video */
-    width: 100%;
-    /* Full width */
-    max-width: 600px;
-    /* Limit max width */
-  }
-
-  .hero-titles {
-    order: 2;
-    /* Second in order */
-    padding-right: 0;
-    /* Remove right padding */
-    max-width: 100%;
-    /* Allow full width */
-    text-align: center;
-    /* Center align text */
-  }
-
-  /* Ensure the PromoVideo scales correctly within its container */
-  .promo-video-container>* {
-    width: 100vw;
-    height: 100%;
-  }
-
-  /* Reduce the main title font size */
-  .hero-titles h1 {
-    font-size: 1.8rem;
-    /* Smaller font size */
-    text-align: center;
-    /* Center align text */
-  }
-
-  /* Reduce list item font size */
-  .hero-titles ul li {
-    font-size: 1rem;
-    /* Smaller font size */
-    text-align: center;
-    /* Center align text */
-  }
-
-  /* Center and stack the "Get the App" buttons vertically */
-  .buttons {
-    justify-content: center;
-    /* Center the buttons horizontally */
-    gap: 15px;
-    /* Maintain spacing between buttons */
-    flex-direction: column;
-    /* Stack buttons vertically */
-    align-items: center;
-    /* Center align buttons */
-  }
-
-  .desktop-buttons {
-    display: none;
-    /* Hide desktop buttons on mobile */
-  }
-
-  .mobile-button {
-    display: block;
-    /* Show mobile button on mobile */
-    width: 100%;
-  }
-
   .get-app-btn {
     width: 100%;
-    /* Make buttons full width within their container */
     max-width: none;
-    /* Remove maximum width restriction */
     padding: 15px 0;
-    /* Increase vertical padding for bigger buttons */
     font-size: 1.1rem;
-    /* Increase font size for better readability */
     border-radius: 12px;
-    /* Slightly larger border radius for a more prominent look */
-    animation: buttonGradientAnimation 5s linear infinite;
-    /* Continuous color change */
-    transform: none;
-    /* Remove transform to prevent interference with the animation */
+    background-color: #1a0a1f;
+    border: 2px solid #6A1D85;
   }
-
-  .button-icon {
-    margin-right: 8px;
-    /* Optional spacing between icon and text */
-    vertical-align: middle;
-  }
-
 }
 
 .android-icon {
   color: green;
 }
 
-
 /* Additional Media Query for Smaller Mobile Devices (Optional) */
 @media screen and (max-width: 480px) {
   :root {
     --promo-title-margin: 20px;
-    /* Reduced margin for very small screens */
+  }
+  
+  .hero-container {
+    padding: 15px 15px;
+    margin-top: 80px;
+  }
+}
+
+/* Container styling for the promo video section */
+.promo-video-container {
+  flex: 1.2;
+  aspect-ratio: 4 / 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+/* Responsive design for screens where buttons might not fit horizontally */
+@media screen and (max-width: 768px) {
+  .hero-container {
+    flex-direction: column;
+    padding: 20px 20px;
+    margin-top: 80px;
+  }
+
+  .promo-video-container {
+    order: 1;
+    width: 100%;
+    max-width: 600px;
+  }
+
+  .hero-titles {
+    order: 2;
+    padding-right: 0;
+    max-width: 100%;
+    text-align: center;
+  }
+
+  /* Ensure the PromoVideo scales correctly within its container */
+  .promo-video-container>* {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Reduce the main title font size */
+  .hero-titles h1 {
+    font-size: 1.8rem;
+    text-align: center;
+  }
+
+  /* Reduce list item font size */
+  .hero-titles ul li {
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  /* Center and stack the "Get the App" buttons vertically */
+  .buttons {
+    justify-content: center;
+    gap: 15px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .desktop-buttons {
+    display: none;
+  }
+
+  .mobile-button {
+    display: block;
+    width: 100%;
+  }
+
+  .button-icon {
+    margin-right: 8px;
+    vertical-align: middle;
   }
 }
 </style>

@@ -11,7 +11,7 @@
           top: image.top,
           left: image.left,
           width: image.width,
-          transform: 'rotate(' + image.rotation + 'deg)',
+          '--rotation': image.rotation + 'deg',
           filter: 'blur(' + image.blur + 'px)',
           opacity: image.opacity,
           borderRadius: image.borderRadius,
@@ -158,6 +158,51 @@ export default {
 .background-image {
   position: absolute;
   /* Opacity and border-radius are now set inline via :style binding */
+  transition: transform 0.3s ease-in-out;
+  transform: rotate(var(--rotation));
+}
+
+/* Different floating patterns for each image */
+.background-image:nth-child(1) { animation: float1 8s ease-in-out infinite; }
+.background-image:nth-child(2) { animation: float2 9.5s ease-in-out infinite; }
+.background-image:nth-child(3) { animation: float3 7.5s ease-in-out infinite; }
+.background-image:nth-child(4) { animation: float4 8.5s ease-in-out infinite; }
+.background-image:nth-child(5) { animation: float5 7.8s ease-in-out infinite; }
+
+@keyframes float1 {
+  0%, 100% { transform: translateY(0) rotate(var(--rotation)); }
+  20% { transform: translateY(-8px) rotate(var(--rotation)); }
+  40% { transform: translateY(4px) rotate(var(--rotation)); }
+  60% { transform: translateY(-6px) rotate(var(--rotation)); }
+  80% { transform: translateY(8px) rotate(var(--rotation)); }
+}
+
+@keyframes float2 {
+  0%, 100% { transform: translateY(0) rotate(var(--rotation)); }
+  25% { transform: translateY(6px) rotate(var(--rotation)); }
+  50% { transform: translateY(-4px) rotate(var(--rotation)); }
+  75% { transform: translateY(8px) rotate(var(--rotation)); }
+}
+
+@keyframes float3 {
+  0%, 100% { transform: translateY(0) rotate(var(--rotation)); }
+  30% { transform: translateY(-5px) rotate(var(--rotation)); }
+  60% { transform: translateY(5px) rotate(var(--rotation)); }
+  90% { transform: translateY(-3px) rotate(var(--rotation)); }
+}
+
+@keyframes float4 {
+  0%, 100% { transform: translateY(0) rotate(var(--rotation)); }
+  15% { transform: translateY(7px) rotate(var(--rotation)); }
+  45% { transform: translateY(-5px) rotate(var(--rotation)); }
+  75% { transform: translateY(3px) rotate(var(--rotation)); }
+}
+
+@keyframes float5 {
+  0%, 100% { transform: translateY(0) rotate(var(--rotation)); }
+  35% { transform: translateY(-6px) rotate(var(--rotation)); }
+  65% { transform: translateY(4px) rotate(var(--rotation)); }
+  85% { transform: translateY(-7px) rotate(var(--rotation)); }
 }
 
 /* App Description Text */

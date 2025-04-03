@@ -593,11 +593,17 @@ export default {
     flex-direction: column;
     gap: 15px;
     padding: 15px 20px;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .newsletter-section p {
     font-size: 1.1rem;
     text-align: center;
+    white-space: normal;
+    width: 100%;
+    padding: 0 10px;
+    box-sizing: border-box;
   }
 
   .newsletter-form {
@@ -606,6 +612,7 @@ export default {
 
   .form-group {
     flex-direction: column;
+    width: 100%;
   }
 
   .email-input {
@@ -617,6 +624,14 @@ export default {
     width: 100%;
     min-width: 100%;
     padding: 10px 24px;
+  }
+
+  .success-message {
+    text-align: center;
+    white-space: normal;
+    width: 100%;
+    padding: 0 10px;
+    box-sizing: border-box;
   }
 }
 

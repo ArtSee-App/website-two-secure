@@ -29,6 +29,8 @@ html {
   min-height: 100%;
   width: 100%;
   overflow-x: hidden;
+  position: fixed;
+  height: 100%;
 }
 
 #app {
@@ -39,6 +41,10 @@ html {
   box-sizing: border-box;
   min-height: 100vh;
   overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  position: relative;
+  background-color: #1a0933;
 }
 
 /* Webkit browsers (Chrome, Edge, Safari) */

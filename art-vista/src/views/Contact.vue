@@ -170,11 +170,19 @@ main {
 .animated-title {
   position: relative;
   text-align: center;
-  color: #e9e9e9;
-  margin-bottom: 20px; /* Reduced margin to accommodate subtitle */
+  color: #ffffff;
+  margin-bottom: 40px;
   font-size: 2.5rem;
-  cursor: pointer;
   overflow: hidden;
+}
+
+/* Remove the hover effect styles */
+.animated-title::before {
+  display: none;
+}
+
+.animated-title:hover::before {
+  display: none;
 }
 
 /* Subtitle Container Styling */

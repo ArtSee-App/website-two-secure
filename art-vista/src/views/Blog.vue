@@ -102,7 +102,6 @@ main {
   color: #e9e9e9;
   margin-bottom: 20px;
   font-size: 2.5rem;
-  cursor: pointer;
   overflow: hidden;
 }
 
@@ -118,37 +117,13 @@ main {
   line-height: 1.5;
 }
 
+/* Remove the hover effect styles */
 .animated-title::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(45deg, #03C1FD, #B902A7, #fda503);
-  background-size: 400% 400%;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-  z-index: -1;
-  border-radius: 8px;
+  display: none;
 }
 
 .animated-title:hover::before {
-  opacity: 1;
-  animation: gradientAnimation 5s linear infinite;
-}
-
-@keyframes gradientAnimation {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+  display: none;
 }
 
 .coming-soon-container {

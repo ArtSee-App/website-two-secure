@@ -107,44 +107,20 @@ main {
 
 .animated-title {
   position: relative;
-  text-align: left;
+  text-align: center;
   color: #ffffff;
   margin-bottom: 40px;
-  font-size: 2.5rem; /* Base font size */
-  cursor: pointer;
-  overflow: hidden; /* Hide the pseudo-element overflow */
+  font-size: 2.5rem;
+  overflow: hidden;
 }
 
+/* Remove the hover effect styles */
 .animated-title::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(45deg, #03C1FD, #B902A7, #fda503);
-  background-size: 400% 400%;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-  z-index: -1; /* Place the gradient behind the text */
-  border-radius: 8px; /* Match the bullets' border-radius */
+  display: none;
 }
 
 .animated-title:hover::before {
-  opacity: 1;
-  animation: gradientAnimation 5s linear infinite;
-}
-
-@keyframes gradientAnimation {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+  display: none;
 }
 
 /* Existing Bulleted Content */
@@ -152,6 +128,7 @@ main {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 20px;
+  margin-bottom: 60px; /* Added bottom margin to the collective div */
 }
 
 .about-bullet {
@@ -298,5 +275,18 @@ main {
     font-size: 1.2rem;
     margin-right: 8px;
   }
+}
+
+/* Media Press Section */
+.media-press {
+  margin-top: 60px;
+  text-align: center;
+}
+
+.media-press h2 {
+  color: #ffffff;
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  text-align: center;
 }
 </style>

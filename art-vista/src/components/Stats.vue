@@ -1,14 +1,15 @@
 <template>
   <section class="stats">
     <div
-      class="stat"
+      class="stat-container"
       v-for="(stat, index) in stats"
       :key="index"
       :class="{ 'stat-app': stat.label === 'App' }"
     >
-      <!-- Applying the highlight class to the value text -->
-      <h2 class="highlight">{{ stat.value }}</h2>
-      <p>{{ stat.label }}</p>
+      <div class="stat-content">
+        <h2 class="highlight">{{ stat.value }}</h2>
+        <p>{{ stat.label }}</p>
+      </div>
     </div>
   </section>
 </template>
@@ -32,36 +33,60 @@ export default {
 /* Container for the stats section */
 .stats {
   display: flex;
-  justify-content: space-around; /* Space around each stat */
-  margin: 50px 0;
-  text-align: center; /* Center align text */
-  flex-wrap: wrap; /* Allow stats to wrap to the next line if necessary */
+  justify-content: space-around;
+  margin: 30px 0;
+  text-align: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 0 20px;
 }
 
-/* Individual stat item */
-.stat {
-  flex: 1; /* Each stat takes equal width */
-  min-width: 200px; /* Ensure a minimum width for better responsiveness */
-  margin: 10px 0; /* Vertical margin for spacing */
+/* Individual stat container */
+.stat-container {
+  flex: 1;
+  min-width: 200px;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  padding: 20px 15px;
+  transition: transform 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px;
+}
+
+.stat-container:hover {
+  transform: translateY(-3px);
+}
+
+/* Content wrapper for each stat */
+.stat-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
 }
 
 /* Styling for the value text with animated gradient effect */
-.stat h2 {
-  font-size: 2em; /* Adjust this value to change the font size */
-  font-weight: 900; /* Bold text */
-  margin: 0; /* Remove default margin */
+.stat-content h2 {
+  font-size: 2em;
+  font-weight: 900;
+  margin: 0;
 }
 
 /* Animated gradient text for the stat value */
 .highlight {
-  /* Gradient background with animated colors */
   background: linear-gradient(45deg, #B902A7, #03C1FD);
   background-size: 400% 400%;
-  -webkit-background-clip: text; /* Clipping the gradient to text */
-  background-clip: text; /* Standard property */
-  -webkit-text-fill-color: transparent; /* Filling the text with transparent to show the gradient */
-  animation: gradientAnimation 10s linear infinite; /* Adjust duration for speed */
-  font-weight: 900; /* Bold weight for the highlighted text */
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientAnimation 10s linear infinite;
+  font-weight: 900;
 }
 
 /* Keyframes for the animated gradient */
@@ -78,65 +103,60 @@ export default {
 }
 
 /* Styling for the label text */
-.stat p {
-  font-size: 1.5em; /* Adjust this value to change the font size of the label */
-  color: #f1f1f1; /* Brighter white color */
-  font-weight: 600; /* Bolder weight for the label text */
-  margin-top: 5px; /* Space above the label */
+.stat-content p {
+  font-size: 1.2em;
+  color: #f1f1f1;
+  font-weight: 600;
+  margin: 0;
 }
-
-/* *** Updated Media Queries for Responsive Design *** */
 
 /* Mobile Phones */
 @media screen and (max-width: 480px) {
-  .stat h2 {
-    font-size: 1.5em; /* Further reduce font size for mobile phones */
-  }
-
-  .stat p {
-    font-size: 1.2em; /* Further reduce font size for mobile phone labels */
-  }
-
   .stats {
-    margin: 80px 0 40px 0; /* Increased top margin for mobile phones */
-    justify-content: center; /* Center the stats */
-    flex-direction: row; /* Ensure row direction */
-    flex-wrap: wrap; /* Allow wrapping */
+    margin: 30px 0;
+    gap: 10px;
   }
 
-  /* Reset default .stat styles */
-  .stat {
-    flex: 0 0 45%; /* Set to 45% for consistent width */
-    margin: 10px 2.5%; /* Horizontal margin for spacing */
+  .stat-container {
+    min-width: 100%;
+    padding: 15px 10px;
+    min-height: 100px;
   }
 
-  /* Hide the third stat ("App") on mobile phones */
+  .stat-content h2 {
+    font-size: 1.8em;
+  }
+
+  .stat-content p {
+    font-size: 1.1em;
+  }
+
   .stat-app {
     display: none;
   }
 }
 
-/* Optional: Enhance responsiveness for medium-sized screens (Tablets) */
+/* Tablets */
 @media screen and (min-width: 481px) and (max-width: 767px) {
-  .stat h2 {
-    font-size: 1.5em; /* Slightly reduce font size for tablets */
-  }
-
-  .stat p {
-    font-size: 1.2em; /* Slightly reduce font size for tablet labels */
-  }
-
   .stats {
-    margin: 30px 0; /* Adjust vertical margin for tablets */
-    justify-content: space-around; /* Space around each stat */
+    margin: 25px 0;
+    gap: 10px;
   }
 
-  .stat {
-    flex: 0 0 45%; /* Each stat takes up 45% width */
-    margin: 10px 2.5%; /* Add horizontal margin for spacing */
+  .stat-container {
+    min-width: calc(50% - 10px);
+    padding: 15px 10px;
+    min-height: 100px;
   }
 
-  /* Ensure the third stat ("App") is visible on tablets */
+  .stat-content h2 {
+    font-size: 1.8em;
+  }
+
+  .stat-content p {
+    font-size: 1.1em;
+  }
+
   .stat-app {
     display: block;
   }

@@ -40,42 +40,29 @@ html {
   min-height: 100vh;
   overflow-x: hidden;
   position: relative;
-  background-color: #1a0933;
 }
 
-/* Add a wrapper div for the entire content */
+/* Remove the ::before pseudo-element as we're handling background in global.css */
 #app::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #1a0933;
-  z-index: -1;
+  display: none;
 }
 
 /* Webkit browsers (Chrome, Edge, Safari) */
 body::-webkit-scrollbar {
   width: 8px;
-  /* Adjust scrollbar width */
 }
 
 body::-webkit-scrollbar-track {
   background: #1a0933;
-  /* Background of the scrollbar track */
 }
 
 body::-webkit-scrollbar-thumb {
   background-color: #6f2da8;
-  /* Deep purple for the scrollbar thumb */
   border-radius: 10px;
-  /* Rounded corners for a smoother look */
 }
 
 body::-webkit-scrollbar-thumb:hover {
   background-color: #5a2299;
-  /* Darker purple on hover */
 }
 
 @media (max-width: 768px) {

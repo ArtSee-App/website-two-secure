@@ -1,15 +1,75 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-html, body {
-  font-family: 'Inter', sans-serif;
+/* Reset and base styles */
+* {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  background: linear-gradient(180deg, #00081E 0%, #40005F 100%); /* Gradient background */
-  color: white;
-  /* Remove height: 100%; */
-  min-height: 100vh; /* Ensure it covers at least the viewport height */
 }
 
-* {
-  box-sizing: border-box; /* Use border-box model for all elements */
+/* Root and body styles */
+html, body {
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(180deg, #00081E 0%, #40005F 100%);
+  color: white;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* App container */
+#app {
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+/* Main content area */
+main {
+  min-height: calc(100vh - 80px);
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  background: transparent;
+}
+
+/* Page containers */
+.api-page,
+.about-page,
+.contact-page,
+.blog-page {
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  background: transparent;
+}
+
+/* Ensure all content containers are transparent */
+.coming-soon-container,
+.newsletter-container,
+.contact-container,
+.api-container {
+  background: transparent;
+  position: relative;
+  z-index: 1;
+}
+
+/* Scrollbar styling */
+body::-webkit-scrollbar {
+  width: 8px;
+}
+
+body::-webkit-scrollbar-track {
+  background: #1a0933;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #6f2da8;
+  border-radius: 10px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background-color: #5a2299;
 }

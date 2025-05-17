@@ -111,7 +111,6 @@ export default {
     return {
       // Initialize imageSrc with a random image from assets/api_images/
       imageSrc: '', // Will be set in created hook
-      token: null,             // To store the fetched token
       boundingBoxes: [],       // To store the bounding boxes
       imageWidth: 0,           // Natural width of the image
       imageHeight: 0,          // Natural height of the image
@@ -249,48 +248,18 @@ export default {
       this.currentImageSourceType = 'local';
     },
 
-    // Fetch token from API
-    async fetchToken() {
-      try {
-        const apiUrl = process.env.VUE_APP_ARTVISTA_API_BASE_URL;
-        const publicToken = process.env.VUE_APP_ARTVISTA_PUBLIC_TOKEN;
-        const response = await fetch(`${apiUrl}/get_custom_token/?token=${publicToken}`, {
-          method: 'GET',
-          headers: {
-            'accept': 'application/json'
-          }
-        });
-        if (!response.ok) {
-          throw new Error(`Token fetch failed with status ${response.status}`);
-        }
-        const data = await response.json();
-        return data.id_token; // Return the custom token
-      } catch (error) {
-        console.error("Failed to fetch token: ", error);
-        return null;
-      }
-    },
-
     // Fetch token and send image to API
     async fetchTokenAndSendImage() {
       try {
-        // Fetch token if not already fetched
-        if (!this.token) {
-          this.token = await this.fetchToken();
-          if (!this.token) {
-            console.error("Failed to retrieve token.");
-            return;
-          }
-        }
-
-        await this.sendImageToAPI(this.token);
+        // Directly call sendImageToAPI as token management is moved to serverless function
+        await this.sendImageToAPI();
       } catch (error) {
         console.error("Error in fetchTokenAndSendImage: ", error);
       }
     },
 
     // Send image to API
-    async sendImageToAPI(token) {
+    async sendImageToAPI() {
       try {
         const imgElement = this.$refs.demoImage; // Get reference to the image element
 
@@ -310,17 +279,14 @@ export default {
         const formData = new FormData();
         formData.append('file', file);
 
-        // Use the base URL from environment variable
-        const apiUrl = process.env.VUE_APP_ARTVISTA_API_BASE_URL;
-
-        // Make the API request using the retrieved token
-        const bboxResponse = await fetch(`${apiUrl}/get_bbox_for_website/?token=${token}`, {
+        // Send to your Netlify Function
+        const bboxResponse = await fetch('/.netlify/functions/analyze', {
           method: 'POST',
           body: formData,
         });
 
         if (!bboxResponse.ok) {
-          throw new Error(`API request failed with status ${bboxResponse.status}`);
+          throw new Error(`Server error: ${bboxResponse.status}`);
         }
 
         // Parse the response and store bounding boxes
@@ -429,86 +395,50 @@ export default {
       this.preloadedImages = []; // Clear preloaded images
       // Set the activeBBoxIndex to the clicked bbox's index
       this.activeBBoxIndex = index;
-      // Ensure token is available
-      if (!this.token) {
-        this.fetchToken().then((token) => {
-          this.token = token;
-          this.cropAndSendImage(bboxObj.bbox);
-        });
-      } else {
-        this.cropAndSendImage(bboxObj.bbox);
-      }
+      // Just crop & send directly to our serverless proxy:
+      this.cropAndSendImage(bboxObj.bbox);
     },
 
     // Crop the image according to the bounding box and send it to the API
     cropAndSendImage(bbox) {
-      const imgElement = this.$refs.demoImage;
-
-      // Create a canvas element
+      const img = this.$refs.demoImage;
       const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
+      const ctx    = canvas.getContext('2d');
 
-      // Set canvas dimensions to bounding box dimensions
-      canvas.width = bbox.w;
+      // Canvas ölçülerini ayarla 
+      canvas.width  = bbox.w;
       canvas.height = bbox.h;
 
-      // Adjust the y-coordinate if necessary
-      let adjustedBBoxY = bbox.y;
-      if (adjustedBBoxY < 0) {
-        adjustedBBoxY = 0;
-      } else if (adjustedBBoxY + bbox.h > this.imageHeight) {
-        adjustedBBoxY = this.imageHeight - bbox.h;
-      }
+      // Y-koordinatını sınırla
+      let y = Math.max(0, Math.min(bbox.y, this.imageHeight - bbox.h));
+      ctx.drawImage(img, bbox.x, y, bbox.w, bbox.h, 0, 0, bbox.w, bbox.h);
 
-      // Draw the image onto the canvas, cropping it according to bbox
-      ctx.drawImage(
-        imgElement,
-        bbox.x, adjustedBBoxY, bbox.w, bbox.h, // Source rectangle
-        0, 0, bbox.w, bbox.h // Destination rectangle
-      );
+      // Blob -> Base64 -> JSON ile search fonksiyonuna POST
+      canvas.toBlob(blob => {
+        const reader = new FileReader();
+        reader.onloadend = async () => {
+          const base64 = reader.result.split(',')[1];  // data kısmı
 
-      // Convert the canvas to Blob
-      canvas.toBlob(async (blob) => {
-        if (!blob) {
-          console.error("Canvas to Blob conversion failed.");
-          return;
-        }
+          try {
+            const res = await fetch('/.netlify/functions/search', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ bbox, imageData: base64 })
+            });
+            if (!res.ok) throw new Error(res.statusText);
 
-        // Create a File from the Blob
-        const file = new File([blob], 'cropped-image.jpg', { type: blob.type });
-
-        // Prepare FormData
-        const formData = new FormData();
-        formData.append('file', file);
-
-        // Use the base URL from environment variable
-        const apiUrl = process.env.VUE_APP_ARTVISTA_API_BASE_URL;
-
-        // Send the image to the API
-        try {
-          const response = await fetch(`${apiUrl}/artwork_search_for_website/?token=${this.token}`, {
-            method: 'POST',
-            headers: {
-              'accept': 'application/json',
-            },
-            body: formData,
-          });
-
-          if (!response.ok) {
-            throw new Error(`API request failed with status ${response.status}`);
+            // Gelen arama sonuçlarını ata
+            this.apiResults = await res.json();
+            this.currentResultIndex = 0;
+            this.preloadImagesAndSetContainerHeight();
+          } catch (err) {
+            console.error('Search failed:', err);
           }
-
-          const data = await response.json();
-          this.apiResults = data;            // Store the API response
-          this.currentResultIndex = 0;       // Reset to display the highest confidence result
-          this.preloadImagesAndSetContainerHeight(); // Preload images and set container height
-
-        } catch (error) {
-          console.error('Error sending cropped image to API:', error);
-        }
-
+        };
+        reader.readAsDataURL(blob);
       }, 'image/jpeg');
     },
+
 
     // Preload images and set the container's min-height
     async preloadImagesAndSetContainerHeight() {

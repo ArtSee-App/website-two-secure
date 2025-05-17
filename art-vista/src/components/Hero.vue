@@ -110,25 +110,60 @@ export default {
     },
     redirectToAppStore() {
       const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-
       if (/android/i.test(userAgent)) {
         window.location.href = 'https://play.google.com/store/apps/details?id=com.artvista&hl=en';
       } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
         window.location.href = 'https://apps.apple.com/nl/app/artvista-art-companion/id6503986684?l=en-GB';
       } else {
-        // Fallback if OS is not detected
         alert('Unable to detect your operating system. Please choose your app store manually.');
       }
     },
-    handleSubmit() {
-      // Here you would typically handle the form submission
-      // For now, we'll just simulate a successful subscription
-      this.isSubscribed = true;
-      this.email = '';
+
+    // ◆◆◆ NEW: fetch a short-lived token from your backend ◆◆◆
+    async fetchToken() {
+      const BASE = process.env.VUE_APP_ARTVISTA_API_BASE_URL;
+      const PUBLIC = process.env.VUE_APP_ARTVISTA_PUBLIC_TOKEN;
+      const res = await fetch(`${BASE}/get_custom_token/?token=${PUBLIC}`);
+      if (!res.ok) throw new Error('Token alınamadı');
+      const { id_token } = await res.json();
+      return id_token;
+    },
+
+    // ◆◆◆ UPDATED: subscribe via your Netlify function ◆◆◆
+    async handleSubmit() {
+      try {
+        // 1️⃣ get JWT
+        const token = await this.fetchToken();
+
+        // 2️⃣ build query string
+        const params = new URLSearchParams({
+          token,
+          email_to_save: this.email
+        });
+
+        // 3️⃣ call Netlify function (which forwards to /save_email/)
+        const res = await fetch(`/.netlify/functions/save_email?${params}`, {
+          // GET is default, CORS headers are handled server‐side
+        });
+
+        if (!res.ok) {
+          const err = await res.json();
+          throw new Error(err.message || res.statusText);
+        }
+
+        // 4️⃣ on success:
+        this.isSubscribed = true;
+        this.email = '';
+      }
+      catch (err) {
+        console.error('Subscription error:', err);
+        alert('An error occurred. Please try again.');
+      }
     }
   }
 }
 </script>
+
 
 <style scoped>
 /* CSS Variables for Adjustable Margins */
@@ -196,13 +231,13 @@ export default {
 
 /* Main title styling */
 .hero-titles h1 {
-  font-size: 2.5rem;
+  font-size: 2rem;
   /* Large font size for the main title */
   margin-bottom: 20px;
   /* Space below the title */
   color: white;
   /* White color for the entire title */
-  font-weight: 700;
+  font-weight: 500;
   /* Bolder weight for the title */
   line-height: 1.2;
   letter-spacing: -0.5px;
@@ -382,6 +417,7 @@ export default {
     max-width: 100%;
     text-align: center;
     width: 100%;
+    margin-top: 20px;
   }
 
   /* Ensure the PromoVideo scales correctly within its container */
@@ -392,7 +428,7 @@ export default {
 
   /* Reduce the main title font size */
   .hero-titles h1 {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     text-align: center;
   }
 

@@ -1,67 +1,76 @@
 <template>
   <div class="blog-page">
-    <Header />
+    <Header/>
     <main>
-      <h1 class="animated-title">Blog 📝</h1>
+      <h1 class="animated-title">Blog & News by ArtVista 📝</h1>
       <div class="subtitle-container">
         <p class="subtitle">
-          Our blog is coming soon! We're working on creating amazing content about art, technology, and the intersection of both worlds.
+          We will be sharing stories from the world of art, art-tech, and ArtVista.
         </p>
       </div>
       
-      <!-- Newsletter Signup Form -->
+      <!-- Container for Subscription -->
       <div class="newsletter-container">
         <div class="newsletter-content">
-          <h2>Subscribe to Our Newsletter</h2>
-          <p v-if="!isSubscribed">Be the first to know when we launch our blog!</p>
-          <p v-else class="success-message">Thank you for subscribing! We'll keep you updated with the latest art insights.</p>
-          <form name="newsletter" method="POST" data-netlify="true" class="newsletter-form" @submit.prevent="handleSubmit">
-            <input type="hidden" name="form-name" value="newsletter" />
+          <h2>Subscribe to Our News</h2>
+          <p v-if="!isSubscribed">
+            Be the first to know about our latest articles and updates!
+          </p>
+          <p v-else class="success-message">
+            Thank you for subscribing! We'll keep you updated.
+          </p>
+          <form class="newsletter-form" @submit.prevent="handleSubmit">
             <div class="form-group" v-if="!isSubscribed">
-              <input 
-                type="email" 
-                name="email" 
-                placeholder="Enter your email" 
+              <input
+                v-model="email"
+                type="email"
+                placeholder="Enter your email"
                 required
                 class="email-input"
-                v-model="email"
               />
-              <button type="submit" class="submit-button">Subscribe</button>
+              <button type="submit" class="submit-button">
+                Subscribe
+              </button>
             </div>
           </form>
         </div>
       </div>
 
-      <!-- Coming Soon Content -->
-      <div class="coming-soon-container">
-        <div class="coming-soon-content">
-          <span class="emoji">🚀</span>
-          <h2>Stay Tuned</h2>
-          <p>We're crafting insightful articles about:</p>
-          <ul class="feature-list">
-            <li>Art History & Culture</li>
-            <li>Digital Art & Technology</li>
-            <li>Artist Spotlights</li>
-            <li>Exhibition Reviews</li>
-            <li>Art Market Insights</li>
-          </ul>
+      <!-- Blog Post List Section -->
+      <div class="blog-posts-list-container">
+        <div class="blog-post-items">
+          <div class="blog-post-card">
+            <router-link to="/blog/journey-2023-2025" class="card-link-wrapper">
+              <img
+                src="https://res.cloudinary.com/dejerkmnu/image/upload/q_auto,f_auto,w_1200/the-wanderer-above-the-sea-of-fog_nub2km.jpg"
+                alt="The Wanderer Above the Sea of Fog painting"
+                class="card-image"
+              >
+              <div class="card-text-content">
+                <h3 class="card-title">Journey of ArtVista (2022-2025)</h3>
+                <p class="card-excerpt">We are sharing the journey of ArtVista from 2022 to 2025.</p>
+                <p class="card-excerpt">The lows, the highs, the lessons we learned.</p>
+                <p class="card-excerpt">The people we met on the way and the way they changed us.</p>
+                <p class="card-excerpt">The plot twists and turns, unexpected difficulties and the deserved joys.</p>
+                <p class="card-excerpt">Finally, the art we trust and love.</p>
+              </div>
+            </router-link>
+          </div>
+          <!-- Daha fazla gönderi buraya eklenebilir -->
         </div>
       </div>
     </main>
-    <Footer />
+    <Footer/>
   </div>
 </template>
 
 <script>
-import Header from '@/components/Header.vue';
-import Footer from '@/components/Footer.vue';
+import Header from '@/components/Header.vue'
+import Footer from '@/components/Footer.vue'
 
 export default {
   name: 'Blog',
-  components: {
-    Header,
-    Footer
-  },
+  components: { Header, Footer },
   data() {
     return {
       isSubscribed: false,
@@ -69,14 +78,26 @@ export default {
     }
   },
   methods: {
-    handleSubmit() {
-      // Here you would typically handle the form submission
-      // For now, we'll just simulate a successful subscription
-      this.isSubscribed = true;
-      this.email = '';
+    async handleSubmit() {
+      try {
+        const res = await fetch('/.netlify/functions/save_email', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email_to_save: this.email })
+        })
+        if (!res.ok) {
+          const err = await res.json()
+          throw new Error(err.message || res.statusText)
+        }
+        this.isSubscribed = true
+        this.email = ''
+      } catch (err) {
+        console.error('Subscription error:', err)
+        alert('An error occurred. Please try again.')
+      }
     }
   }
-};
+}
 </script>
 
 <style scoped>
@@ -85,8 +106,8 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  min-height: 80vh;
+  justify-content: flex-start;
+  min-height: auto;
 }
 
 main {
@@ -113,87 +134,8 @@ main {
 .subtitle {
   font-size: 1.1rem;
   color: #e9e9e9;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
   line-height: 1.5;
-}
-
-/* Remove the hover effect styles */
-.animated-title::before {
-  display: none;
-}
-
-.animated-title:hover::before {
-  display: none;
-}
-
-.coming-soon-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 40px;
-}
-
-.coming-soon-content {
-  background: rgba(255, 255, 255, 0.1);
-  padding: 40px;
-  border-radius: 20px;
-  max-width: 800px;
-  width: 100%;
-  backdrop-filter: blur(10px);
-  position: relative;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  box-sizing: border-box;
-  z-index: 1;
-}
-
-.coming-soon-content .emoji {
-  font-size: 3rem;
-  margin-bottom: 20px;
-  display: block;
-}
-
-.coming-soon-content h2 {
-  color: #e9e9e9;
-  font-size: 2rem;
-  margin-bottom: 20px;
-}
-
-.coming-soon-content p {
-  color: #e9e9e9;
-  font-size: 1.2rem;
-  margin-bottom: 20px;
-}
-
-.feature-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 15px;
-}
-
-.feature-list li {
-  color: #e9e9e9;
-  font-size: 1.1rem;
-  padding: 10px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 8px;
-}
-
-.feature-list li:hover {
-  transform: none;
-  background: rgba(255, 255, 255, 0.05);
-}
-
-@media screen and (max-width: 768px) {
-  .coming-soon-content {
-    padding: 30px 20px;
-  }
-
-  .feature-list {
-    grid-template-columns: 1fr;
-  }
 }
 
 .newsletter-container {
@@ -201,13 +143,14 @@ main {
   width: 100%;
   display: flex;
   justify-content: center;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .newsletter-content {
   background: rgba(255, 255, 255, 0.1);
   padding: 40px;
   border-radius: 20px;
-  max-width: 800px;
   width: 100%;
   min-height: 200px;
   display: flex;
@@ -306,19 +249,74 @@ main {
   background: rgba(255, 255, 255, 0.2);
 }
 
-@media screen and (max-width: 768px) {
-  .form-group {
+@media screen and (max-width: 992px) {
+  .blog-post-card {
     flex-direction: column;
   }
+  
+  .card-link-wrapper {
+    flex-direction: column;
+  }
+  
+  .card-image {
+    width: 100%;
+    height: 200px;
+  }
+  
+  .card-text-content {
+    padding-left: 0;
+    padding-top: 20px;
+    border-left: none;
+    margin-left: 0;
+  }
+}
 
-  .submit-button {
+@media screen and (max-width: 768px) {
+  .blog-post-card {
+    width: 100%;
+    max-width: 400px;
+    min-height: auto;
+  }
+  
+  .card-image {
+    height: 180px;
+  }
+  
+  .card-title {
+    font-size: 1.2rem;
+  }
+  
+  .card-excerpt {
+    font-size: 0.9rem;
+  }
+  
+  .success-message {
+    text-align: center;
+    white-space: normal;
+  }
+
+  /* STACK EVERYTHING AND SET TO 95% */
+  .newsletter-content,
+  .blog-posts-list-container {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  /* MAKE POSTS LIST VERTICAL */
+  .blog-post-items {
+    flex-direction: column;
+    gap: 20px;
     width: 100%;
   }
 
-  .newsletter-content {
-    min-height: 180px;
-    padding: 30px 20px;
+  /* ENSURE EACH CARD FILLS ITS PARENT */
+  .blog-post-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    border-radius: 20px !important;
   }
+
 }
 
 .success-message {
@@ -346,10 +344,132 @@ main {
   }
 }
 
-@media screen and (max-width: 768px) {
-  .success-message {
-    text-align: center;
-    white-space: normal;
+.blog-posts-list-container {
+  margin-top: 60px;
+  margin-bottom: 60px;
+  width: 100%;
+}
+
+.blog-post-items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+}
+
+.blog-post-card {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 20px;
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: row;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, background 0.3s ease;
+  overflow: hidden;
+  text-decoration: none;
+  gap: 0;
+  position: relative;
+}
+
+.blog-post-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, #03C1FD, #B902A7, #fda503);
+  background-size: 200% 200%;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: -1;
+  border-radius: 20px;
+}
+
+.blog-post-card:hover::before {
+  opacity: 1;
+  animation: gradientAnimation 5s linear infinite;
+}
+
+.blog-post-card:hover {
+  transform: scale(1.02);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }
-</style> 
+
+.card-link-wrapper {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 0;
+}
+
+.card-image {
+  width: 300px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.card-text-content {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  flex: 1;
+  justify-content: center;
+  padding-left: 30px;
+  position: relative;
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  margin-left: 20px;
+}
+
+.card-text-content::before {
+  display: none;
+}
+
+.card-title {
+  color: #e9e9e9;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+  line-height: 1.3;
+}
+
+.card-excerpt {
+  color: #c0c0c0;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  margin: 0;
+  flex: 1;
+}
+
+/* Remove old .post-link and .post-excerpt styles if they are no longer needed globally */
+.post-link {
+  display: none;
+}
+
+.post-excerpt {
+  display: none;
+}
+
+
+</style>

@@ -5,6 +5,7 @@ import About from '@/views/About.vue';
 import Contact from '@/views/Contact.vue';
 import Terms from '@/views/Terms.vue';
 import Blog from '@/views/Blog.vue';
+import BlogPostDetail from '@/views/BlogPostDetail.vue';
 
 const routes = [
   {
@@ -21,6 +22,12 @@ const routes = [
     path: '/blog',
     name: 'Blog',
     component: Blog
+  },
+  {
+    path: '/blog/:slug',
+    name: 'BlogPostDetail',
+    component: BlogPostDetail,
+    props: true
   },
   {
     path: '/about',

@@ -45,18 +45,17 @@
                 src="https://res.cloudinary.com/dejerkmnu/image/upload/q_auto,f_auto,w_1200/the-wanderer-above-the-sea-of-fog_nub2km.jpg"
                 alt="The Wanderer Above the Sea of Fog painting"
                 class="card-image"
-              >
+              />
               <div class="card-text-content">
                 <h3 class="card-title">Journey of ArtVista (2022-2025)</h3>
-                <p class="card-excerpt">We are sharing the journey of ArtVista from 2022 to 2025.</p>
-                <p class="card-excerpt">The lows, the highs, the lessons we learned.</p>
-                <p class="card-excerpt">The people we met on the way and the way they changed us.</p>
-                <p class="card-excerpt">The plot twists and turns, unexpected difficulties and the deserved joys.</p>
-                <p class="card-excerpt">Finally, the art we trust and love.</p>
+                <div class="card-excerpt-container">
+                  <p class="card-excerpt">We are sharing the journey of ArtVista from 2022 to 2025.</p>
+                  <p class="card-excerpt">The lows, the highs, the lessons we learned.</p>
+                </div>
               </div>
             </router-link>
           </div>
-          <!-- Daha fazla gönderi buraya eklenebilir -->
+          <!-- More posts here -->
         </div>
       </div>
     </main>
@@ -251,6 +250,7 @@ main {
 
 @media screen and (max-width: 992px) {
   .blog-post-card {
+    display: flex;
     flex-direction: column;
   }
   
@@ -272,51 +272,63 @@ main {
 }
 
 @media screen and (max-width: 768px) {
-  .blog-post-card {
-    width: 100%;
-    max-width: 400px;
-    min-height: auto;
-  }
-  
-  .card-image {
-    height: 180px;
-  }
-  
+
   .card-title {
-    font-size: 1.2rem;
-  }
-  
-  .card-excerpt {
-    font-size: 0.9rem;
-  }
-  
-  .success-message {
     text-align: center;
-    white-space: normal;
   }
 
-  /* STACK EVERYTHING AND SET TO 95% */
+  .card-excerpt {
+    text-align: center;
+  }
+  
+  /* subscribe button bottom */
+  .form-group {
+    flex-direction: column;
+  }
+  
+  /* match widths */
   .newsletter-content,
   .blog-posts-list-container {
-    width: 100%;
-    max-width: 100%;
+    width: 95%;
+    max-width: 95%;
     margin: 0 auto;
   }
 
-  /* MAKE POSTS LIST VERTICAL */
+  /* vertical posts */
   .blog-post-items {
     flex-direction: column;
     gap: 20px;
     width: 100%;
   }
 
-  /* ENSURE EACH CARD FILLS ITS PARENT */
+  /* card adjustments */
   .blog-post-card {
     width: 100% !important;
     max-width: 100% !important;
     border-radius: 20px !important;
   }
 
+  /* ensure stacked under image and no line */
+  .blog-post-card,
+  .card-link-wrapper {
+    flex-direction: column !important;
+  }
+
+  .card-link-wrapper {
+    align-items: center;
+  }
+
+  .card-image {
+    width: 85%;
+  }
+
+  .card-text-content {
+    border-left: none !important;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    padding-top: 20px;
+    text-align: center;
+  }
 }
 
 .success-message {
@@ -450,8 +462,17 @@ main {
   color: #e9e9e9;
   font-size: 1.3rem;
   font-weight: 600;
-  margin: 0 0 8px 0;
   line-height: 1.3;
+  margin-bottom: 25px;
+  margin-top: 25px;
+}
+
+.card-excerpt-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 50%;
+  margin-top: 0px;
 }
 
 .card-excerpt {
@@ -470,6 +491,4 @@ main {
 .post-excerpt {
   display: none;
 }
-
-
 </style>

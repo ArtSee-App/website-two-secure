@@ -405,7 +405,7 @@ export default {
       const canvas = document.createElement('canvas');
       const ctx    = canvas.getContext('2d');
 
-      // Canvas ölçülerini ayarla 
+      // Canvas ölçülerini ayarla
       canvas.width  = bbox.w;
       canvas.height = bbox.h;
 

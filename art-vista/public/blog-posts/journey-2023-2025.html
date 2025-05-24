@@ -3,12 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Journey of ArtVista</title>
+    <title>ArtVista's Journey So Far</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --accent-color: #3498db;
+            --text-color: #2c3e50;
+            --light-text: #7f8c8d;
+            --background-color: #ffffff;
+            --max-width: 800px;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        .blog-post-content {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .author-info {
+            color: var(--light-text);
+            font-style: italic;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        h2 {
+            color: var(--secondary-color);
+            font-size: 1.8rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        figure {
+            margin: 2rem 0;
+        }
+
+        figure img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        figcaption {
+            text-align: center;
+            color: var(--light-text);
+            font-style: italic;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        figcaption a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        figcaption a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .blog-post-content {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            p {
+                font-size: 1rem;
+            }
+        }
+
+        /* Added custom styles for the title underline and improved author info */
+        .title-underline {
+            height: 3px;
+            width: 100%;
+            max-width: var(--max-width);
+            margin: 0.5rem auto 1.5rem;
+            background: linear-gradient(to right, #1D88F0, #BF03B0);
+        }
+        .author-info {
+            margin-top: -0.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            font-style: normal;
+            color: #f0f0f0c9;
+        }
+        .author-info .author-name {
+            color: #f0f0f0c9;
+        }
+        .author-info .author-date {
+            color: #f0f0f0c9;
+        }
+    </style>
 </head>
 <body>
     <div class="blog-post-content">
-        <h1>Journey of ArtVista (so far)</h1>
-        <p style="font-style: italic; margin-top: -15px; margin-bottom: 20px;">Tunahan Sarı; Tech Lead @ ArtVista; 18 May 2025</p>
+        <h1>ArtVista's Journey So Far</h1>
+        <p class="author-info"><span class="author-name">Tunahan Sarı</span> • <span class="author-date">24 May 2025</span></p>
+        
+        <div class="title-underline"></div>
         <p>I'm writing this blog to tell the story of ArtVista, how it began, how it evolved, and how we got here with all the twists and turns. Enjoy!</p>
 
         <h2>December 2022</h2>
@@ -41,14 +165,14 @@
         <h2>February 2024</h2>
         
         <p>Taylan had a random meeting at The Gate, Eindhoven. I don't remember the exact context, but since we studied at TU Eindhoven, and The Gate's whole mission is to support TU/e (and nearby schools') student startups, we figured it was worth talking to their business developers.</p>
-        <p>That's when we met Bart, the lead business developer. He convinced us to join the TU/e Contest, a startup competition designed to help students take their ideas seriously. At this point, we already had a working app, but we hadn’t fully committed to the competition yet.</p>
+        <p>That's when we met Bart, the lead business developer. He convinced us to join the TU/e Contest, a startup competition designed to help students take their ideas seriously. At this point, we already had a working app, but we hadn't fully committed to the competition yet.</p>
         <p>We got convinced.</p>
         <p>We got better at pitching. But we were also in a ring full of competitors trying to save the world with rocket science. And here we were, an art-tech startup. Still, we truly believed (and still do) that we had the most tangible, realistic product, ready to use.</p>
         <p>Through the contest, we met Isolde Hallensleben, the Art & Tech Lead at TU/e's Innovation Space. It's wild that it took us 1.5 years to find out she even existed. She ended up being a key figure in our journey, connecting us with museum directors and other people in the art industry.</p>
         
         <figure>
             <img src="https://res.cloudinary.com/dejerkmnu/image/upload/q_auto,f_auto,w_1200/v1747523881/7c0f4152-6dd6-43c6-ab72-938c1f4baade_d1lnqc.jpg" alt="Optimized Image" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;" />
-            <figcaption style="text-align: center; color: white; font-style: italic; margin-top: -15px; margin-bottom: 20px;">ArtVista’s poster at the TU/e Contest poster market - Taylan, Vlad, Tunahan</figcaption>
+            <figcaption style="text-align: center; color: white; font-style: italic; margin-top: -15px; margin-bottom: 20px;">ArtVista's poster at the TU/e Contest poster market - Taylan, Vlad, Tunahan</figcaption>
         </figure>
         
         <h2>June 2024</h2>
@@ -82,9 +206,9 @@
         <p>Because at the end of the day, we're not hypocrites. We don't want to ruin the experience with things we ourselves despise.</p>
 
         <h2>Long story short</h2>
-        <p>We’re definitely not done with our journey yet, slowly but steadily, we’re moving forward. We’re extremely proud of our product and can’t wait to see what comes next.</p>
+        <p>We're definitely not done with our journey yet, slowly but steadily, we're moving forward. We're extremely proud of our product and can't wait to see what comes next.</p>
         <p>Our hope is to attract more artists to the platform and to convince museums to partner with us.</p>
-        <p>We believe exposure is crucial for both emerging and established artists, and if we can help them in any way, it would mean a lot to us. Moreover, audio guides today often fall flat: they’re not interactive or personalized, can be too expensive for no clear reason, and usually lack broad language support. We’re on a mission to change all that.</p>
+        <p>We believe exposure is crucial for both emerging and established artists, and if we can help them in any way, it would mean a lot to us. Moreover, audio guides today often fall flat: they're not interactive or personalized, can be too expensive for no clear reason, and usually lack broad language support. We're on a mission to change all that.</p>
         <p>Thank you for reading and I truly hope you believe in our cause and mission. Even if not before, I hope you do now after reading this blog post. </p>
         <p>There is still a lot to talk about, but I'll save that for another blog post. Thanks for reading and being a part of our journey.</p>
 

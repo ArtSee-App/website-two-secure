@@ -42,7 +42,7 @@
           <div class="blog-post-card">
             <router-link to="/blog/journey-2023-2025" class="card-link-wrapper">
               <img
-                src="https://res.cloudinary.com/dejerkmnu/image/upload/q_auto,f_auto,w_1200/the-wanderer-above-the-sea-of-fog_nub2km.jpg"
+                src="https://res.cloudinary.com/dejerkmnu/image/upload/q_auto,f_auto,w_1200/v1748124494/71721516-336d-483c-b180-55db420bca3a_fhhnrj.png"
                 alt="The Wanderer Above the Sea of Fog painting"
                 class="card-image"
               />

@@ -5,7 +5,7 @@
       <h1 class="animated-title">Blog & News by ArtVista 📝</h1>
       <div class="subtitle-container">
         <p class="subtitle">
-          We will be sharing stories from the world of art, art-tech, and ArtVista.
+          Notes from the world of art, art-tech, and the team behind ArtVista.
         </p>
       </div>
       
@@ -47,7 +47,11 @@
                 class="card-image"
               />
               <div class="card-text-content">
-                <h3 class="card-title">Journey of ArtVista (2022-2025)</h3>
+                <h3 class="card-title">ArtVista's Journey So Far</h3>
+                <div class="card-meta">
+                  <span class="card-date">24 May 2025</span>
+                  <span class="card-author">by Tunahan Sarı</span>
+                </div>
                 <div class="card-excerpt-container">
                   <p class="card-excerpt">We are sharing the journey of ArtVista from 2022 to 2025.</p>
                   <p class="card-excerpt">The lows, the highs, the lessons we learned.</p>
@@ -459,12 +463,13 @@ main {
 }
 
 .card-title {
-  color: #e9e9e9;
-  font-size: 1.3rem;
-  font-weight: 600;
+  color: #ffffff;
+  font-size: 1.8rem;
+  font-weight: 700;
   line-height: 1.3;
-  margin-bottom: 25px;
-  margin-top: 25px;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 .card-excerpt-container {
@@ -476,11 +481,23 @@ main {
 }
 
 .card-excerpt {
-  color: #c0c0c0;
-  font-size: 0.95rem;
-  line-height: 1.4;
-  margin: 0;
-  flex: 1;
+  color: #d0d0d0;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0.25rem 0;
+}
+
+.card-meta {
+  font-size: 0.8rem;
+  color: #b0b0b0;
+  margin-bottom: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.card-meta .card-date,
+.card-meta .card-author {
+  font-size: 0.8rem;
 }
 
 /* Remove old .post-link and .post-excerpt styles if they are no longer needed globally */
@@ -490,5 +507,15 @@ main {
 
 .post-excerpt {
   display: none;
+}
+
+/* Fade in/out subtext white on hover for blog post card */
+.card-meta,
+.card-excerpt {
+  transition: color 0.3s ease;
+}
+.blog-post-card:hover .card-meta,
+.blog-post-card:hover .card-excerpt {
+  color: #ffffff;
 }
 </style>

@@ -6,19 +6,11 @@
         <h1>
           The <span class="highlight">Art Companion</span><br>
           You Are Looking For
+          
         </h1>
         <ul>
           <li>
-            🖼️ Understand <span class="highlight-small">Art</span> Better
-            <p class="description">Get quick answers for your art-related questions</p>
-          </li>
-          <li>
-            🤳 Scan and Discover
-            <p class="description">Instantly identify artworks with just a scan</p>
-          </li>
-          <li>
-            👩‍🎨 Connect with Artists
-            <p class="description">Bridge the gap between art lovers and creators</p>
+            🖼️ Simply a <span class="highlight-small"> Better Alternative</span> to Audio Guides
           </li>
         </ul>
         <!-- Action Buttons for the App -->
@@ -45,18 +37,18 @@
             <button class="get-app-btn" @click="redirectToAppStore">Get the App</button>
           </div>
         </div>
+        <div class="iphone-container">
+          <img src="@/assets/Website Image (3).png" alt="ArtVista Website on a screen" class="iphone-image" />
+        </div>
       </div>
 
       <!-- Right Section: Promo Video Component -->
-      <div class="promo-video-container">
-        <PromoVideo />
-      </div>
     </div>
   </div>
 
   <!-- Newsletter Subscription -->
   <div class="newsletter-section">
-    <p v-if="!isSubscribed">Subscribe to our newsletter for the latest art insights</p>
+    <p v-if="!isSubscribed">Subscribe to our newsletter for the latest insights</p>
     <p v-else class="success-message">Thank you for subscribing! We'll keep you updated with the latest art insights.</p>
     <form name="newsletter" method="POST" data-netlify="true" class="newsletter-form" @submit.prevent="handleSubmit">
       <input type="hidden" name="form-name" value="newsletter" />
@@ -77,7 +69,6 @@
 
 <script>
 // Importing the PromoVideo component to be used within the Hero component
-import PromoVideo from '@/components/PromoVideo.vue'
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { faApple, faAndroid } from '@fortawesome/free-brands-svg-icons';
@@ -87,7 +78,6 @@ library.add(faApple, faAndroid);
 export default {
   name: "Hero",
   components: {
-    PromoVideo,
     FontAwesomeIcon,
   },
   data() {
@@ -177,13 +167,16 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px 30px;
+  padding: 40px 30px 0;
   margin-top: 100px;
   width: 100%;
   max-width: 1600px;
   margin-left: auto;
   margin-right: auto;
   background-color: rgba(0, 0, 0, 0.3);
+  background-image: url("~@/assets/Bubbles.png");
+  background-size: cover;
+  background-position: center;
   border-radius: 20px;
   backdrop-filter: blur(10px);
   position: relative;
@@ -192,27 +185,12 @@ export default {
   z-index: 1;
 }
 
-.hero-container::before {
-  content: '';
-  position: absolute;
-  inset: -1px;
-  background: linear-gradient(45deg, #03C1FD, #B902A7, #03C1FD);
-  background-size: 200% 200%;
-  border-radius: 21px;
-  z-index: -1;
-  animation: gradientAnimation 5s linear infinite;
-  -webkit-mask: 
-    linear-gradient(#fff 0 0) content-box, 
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  padding: 1px;
-}
+
 
 /* Content wrapper to center the entire content block */
 .content-wrapper {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   width: 100%;
   max-width: 1200px;
@@ -221,17 +199,13 @@ export default {
 
 /* Left section styling */
 .hero-titles {
-  flex: 1;
-  /* Allows the left section to take up available space */
-  padding-right: 50px;
-  /* Spacing between the titles and the video section */
-  max-width: 550px;
-  /* Maximum width for the left section */
+  text-align: center;
+  max-width: 800px;
 }
 
 /* Main title styling */
 .hero-titles h1 {
-  font-size: 2rem;
+  font-size: 4rem;
   /* Large font size for the main title */
   margin-bottom: 20px;
   /* Space below the title */
@@ -255,28 +229,13 @@ export default {
   /* Standard property for compatibility */
   -webkit-text-fill-color: transparent;
   /* Filling the text with transparent to show the gradient */
-  animation: gradientAnimation 5s linear infinite;
-  /* Animation applied */
   font-weight: 900;
   /* Extra bold weight for the highlighted text */
   letter-spacing: -0.5px;
   text-shadow: none;
 }
 
-/* Keyframes for the gradient animation */
-@keyframes gradientAnimation {
-  0% {
-    background-position: 0% 50%;
-  }
 
-  50% {
-    background-position: 100% 50%;
-  }
-
-  100% {
-    background-position: 0% 50%;
-  }
-}
 
 /* Styling for the small highlight */
 .highlight-small {
@@ -285,7 +244,6 @@ export default {
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: gradientAnimation 5s linear infinite;
   font-weight: 900;
   letter-spacing: -0.5px;
   text-shadow: none;
@@ -334,7 +292,7 @@ export default {
   /* Space between buttons */
   flex-wrap: wrap;
   /* Allow buttons to wrap to the next line if necessary */
-  justify-content: flex-start;
+  justify-content: center;
   /* Align buttons to the start */
 }
 
@@ -374,105 +332,6 @@ export default {
     background-color: #6A1D85;
     transform: translateY(-2px);
     box-shadow: 0 6px 12px rgba(106, 29, 133, 0.3);
-  }
-}
-
-/* Mobile button styling */
-@media screen and (max-width: 768px) {
-  .get-app-btn {
-    width: 100%;
-    max-width: none;
-    padding: 15px 0;
-    font-size: 1.1rem;
-    border-radius: 12px;
-    background-color: #1a0a1f;
-    border: 2px solid #6A1D85;
-  }
-  
-  .hero-container {
-    flex-direction: column;
-    padding: 20px 20px;
-    margin-top: 80px;
-    width: calc(100% - 20px);
-    max-width: none;
-    margin-left: auto;
-    margin-right: auto;
-    box-sizing: border-box;
-  }
-  
-  .content-wrapper {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .promo-video-container {
-    order: 1;
-    width: 100%;
-    max-width: 100%;
-  }
-
-  .hero-titles {
-    order: 2;
-    padding-right: 0;
-    max-width: 100%;
-    text-align: center;
-    width: 100%;
-    margin-top: 20px;
-  }
-
-  /* Ensure the PromoVideo scales correctly within its container */
-  .promo-video-container>* {
-    width: 100%;
-    height: 100%;
-  }
-
-  /* Reduce the main title font size */
-  .hero-titles h1 {
-    font-size: 1.5rem;
-    text-align: center;
-  }
-
-  /* Reduce list item font size */
-  .hero-titles ul li {
-    font-size: 1rem;
-    text-align: center;
-  }
-
-  /* Center and stack the "Get the App" buttons vertically */
-  .buttons {
-    justify-content: center;
-    gap: 15px;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .desktop-buttons {
-    display: none;
-  }
-
-  .mobile-button {
-    display: block;
-    width: 100%;
-  }
-
-  .button-icon {
-    margin-right: 8px;
-    vertical-align: middle;
-  }
-}
-
-/* Additional Media Query for Smaller Mobile Devices (Optional) */
-@media screen and (max-width: 480px) {
-  :root {
-    --promo-title-margin: 20px;
-  }
-  
-  .hero-container {
-    padding: 15px 15px;
-    margin-top: 80px;
-    width: calc(100% - 10px);
-    max-width: none;
-    box-sizing: border-box;
   }
 }
 
@@ -522,13 +381,12 @@ export default {
   transform: translateX(-50%);
   width: 100%;
   height: 1px;
-  background: linear-gradient(90deg, 
-    transparent 0%, 
+  background: linear-gradient(90deg,
+    transparent 0%,
     rgba(255, 255, 255, 0.1) 20%,
     rgba(255, 255, 255, 0.2) 50%,
     rgba(255, 255, 255, 0.1) 80%,
-    transparent 100%
-  );
+    transparent 100%);
 }
 
 .newsletter-section p {
@@ -624,7 +482,131 @@ export default {
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
 }
 
+.success-message {
+  color: #e9e9e9;
+  font-size: 1.2rem;
+  margin: 0;
+  opacity: 0.9;
+  white-space: nowrap;
+  position: relative;
+  letter-spacing: -0.2px;
+  font-weight: 500;
+  animation: fadeIn 0.5s ease;
+  text-align: center;
+  width: 100%;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.iphone-container {
+  margin-top: 0px;
+  line-height: 0;
+}
+
+.iphone-image {
+  max-width: 600px;
+  width: 100%;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* --- Mobile-specific styles --- */
 @media screen and (max-width: 768px) {
+
+  /* Mobile button styling */
+  .get-app-btn {
+    width: 100%;
+    max-width: none;
+    padding: 15px 0;
+    font-size: 1.1rem;
+    border-radius: 12px;
+    background-color: #1a0a1f;
+    border: 2px solid #6A1D85;
+  }
+
+  .hero-container {
+    flex-direction: column;
+    padding: 20px 20px 0;
+    margin-top: 80px;
+    width: calc(100% - 20px);
+    max-width: none;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+  }
+
+  .content-wrapper {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .promo-video-container {
+    order: 1;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .hero-titles {
+    order: 2;
+    padding-right: 0;
+    max-width: 100%;
+    text-align: center;
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  /* Ensure the PromoVideo scales correctly within its container */
+  .promo-video-container>* {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Reduce the main title font size */
+  .hero-titles h1 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  /* Reduce list item font size */
+  .hero-titles ul li {
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  /* Center and stack the "Get the App" buttons vertically */
+  .buttons {
+    justify-content: center;
+    gap: 15px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .desktop-buttons {
+    display: none;
+  }
+
+  .mobile-button {
+    display: block;
+    width: 100%;
+  }
+
+  .button-icon {
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+
   .newsletter-section {
     flex-direction: column;
     gap: 15px;
@@ -671,35 +653,18 @@ export default {
   }
 }
 
-.success-message {
-  color: #e9e9e9;
-  font-size: 1.2rem;
-  margin: 0;
-  opacity: 0.9;
-  white-space: nowrap;
-  position: relative;
-  letter-spacing: -0.2px;
-  font-weight: 500;
-  animation: fadeIn 0.5s ease;
-  text-align: center;
-  width: 100%;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
+/* Additional Media Query for Smaller Mobile Devices */
+@media screen and (max-width: 480px) {
+  :root {
+    --promo-title-margin: 20px;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 
-@media screen and (max-width: 768px) {
-  .success-message {
-    text-align: center;
-    white-space: normal;
+  .hero-container {
+    padding: 15px 15px 0;
+    margin-top: 80px;
+    width: calc(100% - 10px);
+    max-width: none;
+    box-sizing: border-box;
   }
 }
 </style>

@@ -4,6 +4,11 @@ You will read the user's questions, take your time to understand, and give conci
 explaining what is wrong in case of fixing an issue, or why the idea makes sense if you are offering a new solution.
 Assume that the user is not a front-end engineer.
 
+
+### BRAND MEDIA ###
+Blue tone: 1D88F0
+Purple Tone: BF03B0
+
 ### PROJECT DESCRIPTION ###
 Under the art-vista folder, you have an npm project. This project is the website of ArtVista.
 The files are mainly in art-vista/src/components and art-vista/src/views. This website is hosted

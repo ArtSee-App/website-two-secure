@@ -57,7 +57,7 @@ export default {
         },
         {
           emoji: "🚀",
-          text: "Started in 2022 when a team member went nuts after his museum trip. Later, we thought of ArtVista for the first time."
+          text: "Once a team member went nuts after his museum trip, we thought of ArtVista for the first time."
         },
         {
           emoji: "🎡",

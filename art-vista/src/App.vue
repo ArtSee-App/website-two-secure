@@ -1,17 +1,39 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <transition name="fade">
+      <LoadingScreen v-if="isLoading" />
+    </transition>
+    <router-view v-show="!isLoading" />
   </div>
 </template>
 
-<script>
-export default {
-  name: "App"
-}
+<script setup>
+import { ref, onMounted } from 'vue';
+import LoadingScreen from './components/LoadingScreen.vue';
+
+const isLoading = ref(true);
+
+onMounted(() => {
+  setTimeout(() => {
+    isLoading.value = false;
+  }, 2500); // Wait for 2 seconds before starting the fade-out.
+});
 </script>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/*
+  This transition applies to the LoadingScreen as it's removed from the DOM.
+  The 'v-if' on LoadingScreen triggers the leave animation.
+*/
+.fade-leave-active {
+  transition: opacity 1.2s ease-in-out;
+}
+
+.fade-leave-to {
+  opacity: 0;
+}
 
 body,
 html {
@@ -19,13 +41,9 @@ html {
   margin: 0;
   padding: 0;
   background-color: #1a0933;
-  /* Site general background color */
   color: black;
-  /* General text color */
   scrollbar-width: thin;
-  /* For Firefox */
   scrollbar-color: #6f2da8 #1a0933;
-  /* Thumb and track color */
   min-height: 100%;
   width: 100%;
   overflow-x: hidden;
@@ -42,12 +60,10 @@ html {
   position: relative;
 }
 
-/* Remove the ::before pseudo-element as we're handling background in global.css */
 #app::before {
   display: none;
 }
 
-/* Webkit browsers (Chrome, Edge, Safari) */
 body::-webkit-scrollbar {
   width: 8px;
 }

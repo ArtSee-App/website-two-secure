@@ -1,7 +1,6 @@
 <template>
     <div class="for-artists-section" @click="openLoginPortal">
       <section class="for-artists">
-        <img :src="promoGif" alt="ArtVista App Promotion" class="promo-gif" />
         <div class="text-content">
           <h3 class="pre-title">For artists</h3>
           <h2 class="section-title">Make Your Art Visible</h2>
@@ -16,6 +15,7 @@
             </div>
           </div>
         </div>
+        <img :src="promoGif" alt="ArtVista App Promotion" class="promo-gif" />
       </section>
     </div>
   </template>

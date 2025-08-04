@@ -10,7 +10,7 @@
         </h1>
         <ul>
           <li>
-            🖼️ Simply a <span class="highlight-small"> Better Alternative</span> to Audio Guides
+            🖼️ A <span class="highlight-small"> Better Alternative</span> to Audio Guides
           </li>
         </ul>
         <!-- Action Buttons for the App -->

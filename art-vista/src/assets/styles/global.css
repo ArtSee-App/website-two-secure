@@ -10,7 +10,7 @@
 /* Root and body styles */
 html, body {
   font-family: 'Inter', sans-serif;
-  background: linear-gradient(180deg, #00081E 0%, #40005F 100%);
+  background: linear-gradient(180deg, #00081E 0%, #20002e 100%);
   color: white;
   min-height: 100vh;
   width: 100%;

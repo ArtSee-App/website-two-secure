@@ -11,25 +11,33 @@ exports.handler = async (event) => {
     if (!tokRes.ok) throw new Error('Failed to fetch token');
     const { id_token } = await tokRes.json();
 
-    // 2️⃣ event.body'a JSON.parse YOK:
+    // 2️⃣ Handle both base64-encoded and raw bodies
+    const rawBody = event.isBase64Encoded
+      ? Buffer.from(event.body, 'base64')
+      : Buffer.from(event.body);
+
     const apiRes = await fetch(
       `${BASE}/get_bbox_for_website/?token=${id_token}`,
       {
         method: 'POST',
         headers: { 'Content-Type': event.headers['content-type'] },
-        body: Buffer.from(event.body, 'base64'),  // direk pipelayız
-        isBase64Encoded: true
+        body: rawBody,
       }
     );
-    if (!apiRes.ok) throw new Error('BBox API failed');
+    if (!apiRes.ok) throw new Error(`BBox API failed: ${apiRes.status}`);
 
     const bboxes = await apiRes.json();
     return {
       statusCode: 200,
+      headers: { 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json' },
       body: JSON.stringify(bboxes)
     };
   } catch (err) {
     console.error(err);
-    return { statusCode: 500, body: err.message };
+    return {
+      statusCode: 500,
+      headers: { 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json' },
+      body: JSON.stringify({ error: err.message })
+    };
   }
 };

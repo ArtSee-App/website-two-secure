@@ -2,12 +2,13 @@
   <div class="home">
     <Header />
     <Hero />
-    <PromoVideo />
+    <Reviews />
     <Stats />
-    <ForArtEnthusiasts />
-    <ForArtists />
+    <div class="audience-row">
+      <ForArtEnthusiasts />
+      <ForArtists />
+    </div>
     <ForMuseums />
-    <WebDesign />
     <Footer />
   </div>
 </template>
@@ -18,8 +19,8 @@ import Hero from '@/components/Hero.vue'
 import Stats from '@/components/Stats.vue'
 import ForArtEnthusiasts from '@/components/ForArtEnthusiasts.vue'
 import ForArtists from '@/components/ForArtists.vue'
-//import ForMuseums from '@/components/ForMuseums.vue'
-//import WebDesign from '@/components/WebDesign.vue'
+import ForMuseums from '@/components/ForMuseums.vue'
+import Reviews from '@/components/Reviews.vue'
 import Footer from '@/components/Footer.vue'
 
 export default {
@@ -30,9 +31,24 @@ export default {
     Stats,
     ForArtEnthusiasts,
     ForArtists,
-    //ForMuseums,
-    //WebDesign,
+    ForMuseums,
+    Reviews,
     Footer
   }
 }
 </script>
+
+<style scoped>
+.audience-row {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 50px;
+  align-items: stretch;
+}
+
+@media screen and (max-width: 767px) {
+  .audience-row {
+    flex-direction: column;
+  }
+}
+</style>

@@ -1,211 +1,160 @@
 <template>
-  <div class="for-museums-section">
-    <section class="for-museums">
-      <div class="text-content">
-        <h3 class="pre-title">For museums</h3>
-        <h2 class="section-title">Enhance Visitor Experience</h2>
-        <p class="section-subtitle">Transform your museum into an interactive digital experience that engages visitors through their smartphones.</p>
-        <div class="features-list">
-          <div v-for="(feature, index) in features" :key="index" class="feature-item">
-            <span class="feature-icon">{{ feature.icon }}</span>
-            <div class="feature-text">
-              <h4>{{ feature.title }}</h4>
-              <p>{{ feature.description }}</p>
-            </div>
-          </div>
+  <div class="museums-wrapper">
+    <div class="teaser-card" @click="goToContact">
+      <div class="teaser-inner">
+        <div class="teaser-text">
+          <h3 class="pre-title">For museums</h3>
+          <h2 class="section-title">Enhance Visitor Experience</h2>
+          <p class="section-subtitle">Transform your museum into an interactive digital experience that engages visitors through their smartphones.</p>
+        </div>
+        <div class="teaser-cta">
+          <span>Contact us</span>
+          <span class="arrow">&#8594;</span>
         </div>
       </div>
-      <img :src="promoGif" alt="ArtVista Museum Experience" class="promo-gif" />
-    </section>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { reactive } from 'vue';
-import promoGif from '@/assets/promo.gif';
+import { useRouter } from 'vue-router';
 
-const features = reactive([
-  {
-    icon: '📱',
-    title: 'Interactive Phone Guides',
-    description: 'Replace bulky audio devices with smartphone-based guides that offer personalized, multilingual experiences with AI-powered interactions.'
-  },
-  {
-    icon: '📊',
-    title: 'Visitor Analytics',
-    description: 'Gain insights into visitor engagement patterns and preferences to optimize exhibition layouts and educational content.'
-  },
-  {
-    icon: '💾',
-    title: 'Digitize Your Collection',
-    description: 'Transform physical artworks into digital experiences with comprehensive metadata, high-resolution imagery, and interactive storytelling.'
-  }
-]);
+const router = useRouter();
+
+function goToContact() {
+  router.push({ path: '/Contact', query: { highlight: 'museums' } });
+}
 </script>
 
 <style scoped>
-/* Section styles */
-.for-museums-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.museums-wrapper {
   width: 100%;
-  margin-top: 0px;
   margin-bottom: 50px;
 }
 
-.for-museums {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  min-height: 600px;
-  padding: 40px;
-  background-color: rgba(0, 0, 0, 0.3);
-  border-radius: 20px;
+/* Teaser */
+.teaser-card {
+  cursor: pointer;
+  border-radius: 24px;
   overflow: hidden;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  width: 100%;
-  isolation: isolate;
-  z-index: 1;
+  position: relative;
+  transition: transform 0.3s ease;
 }
 
-.for-museums::before {
+.teaser-card::after {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: url("~@/assets/Bubbles.png");
+  border-radius: 24px;
+  padding: 2px;
+  background: linear-gradient(45deg, #1D88F0, #BF03B0);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.teaser-card:hover::after {
+  opacity: 1;
+}
+
+.teaser-card:hover {
+  transform: translateY(-4px);
+}
+
+.teaser-inner {
+  position: relative;
+  padding: 36px 44px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 24px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.teaser-inner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("~@/assets/Bubbles (2).png");
   background-size: cover;
   background-position: center;
-  transform: scaleX(1);
   z-index: -1;
+  opacity: 0.7;
 }
 
-/* Text content */
-.text-content {
-  max-width: 40%;
-  text-align: left;
-  margin-bottom: 20px;
+.teaser-text {
+  max-width: 70%;
 }
+
+.teaser-cta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.teaser-card:hover .teaser-cta {
+  color: white;
+}
+
+.arrow {
+  font-size: 1.3rem;
+  transition: transform 0.2s ease;
+}
+
+.teaser-card:hover .arrow {
+  transform: translateX(4px);
+}
+
 
 .pre-title {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.85rem;
   font-weight: 400;
-  margin-bottom: 8px;
+  margin: 0 0 8px;
   text-transform: uppercase;
   letter-spacing: 1.5px;
 }
 
 .section-title {
-  color: rgba(255, 255, 255, 0.95);
-  font-size: 2.5rem;
+  color: white;
+  font-size: 2rem;
   font-weight: 600;
-  margin-bottom: 10px;
+  margin: 0 0 10px;
 }
 
 .section-subtitle {
-  color: rgba(255, 255, 255, 0.85);
-  font-size: 1.1rem;
-  font-weight: 400;
-  letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 1rem;
   line-height: 1.5;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  margin: 0 0 28px;
 }
 
-/* Promo image */
-.promo-gif {
-  width: 599px;
-  height: 449px;
-  object-fit: cover;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-}
 
-/* Features */
-.features-list {
-  margin-top: 30px;
-}
-
-.feature-item {
-  display: flex;
-  align-items: flex-start;
-  margin-bottom: 20px;
-}
-
-.feature-item:last-child {
-  margin-bottom: 0;
-}
-
-.feature-icon {
-  font-size: 1.8rem;
-  margin-right: 15px;
-  line-height: 1.2;
-}
-
-.feature-text h4 {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.95);
-  margin-bottom: 5px;
-}
-
-.feature-text p {
-  font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.8);
-  line-height: 1.4;
-}
-
-/* Mobile Phones (max-width: 480px) */
 @media screen and (max-width: 767px) {
-  .for-museums {
+  .teaser-inner {
     flex-direction: column;
-    text-align: center;
-    min-height: auto;
-    padding: 20px;
-    margin: 0;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 24px;
   }
 
-  .text-content {
+  .teaser-text {
     max-width: 100%;
-    margin-bottom: 25px;
   }
 
-  .section-title, .section-subtitle, .pre-title {
-    text-align: center;
-  }
-
-  .section-title {
-    font-size: 2rem;
-  }
-
-  .section-subtitle {
-    font-size: 1rem;
-  }
-
-  .features-list {
-    text-align: left;
-  }
-
-  .feature-icon {
-    font-size: 1.5rem;
-  }
-
-  .feature-text h4 {
-    font-size: 1rem;
-  }
-
-  .feature-text p {
-    font-size: 0.85rem;
-  }
-
-  .promo-gif {
-    width: 100%;
-    max-width: 599px;
-    height: auto;
-    max-height: 449px;
-    border-radius: 15px;
+.section-title {
+    font-size: 1.6rem;
   }
 }
 </style>

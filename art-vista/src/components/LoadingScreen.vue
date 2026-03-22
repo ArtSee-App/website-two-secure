@@ -21,9 +21,6 @@
   justify-content: center;
   align-items: center;
   background-color: #0c011e;
-  background-image: url('@/assets/Bubbles.png');
-  background-size: cover;
-  background-position: center;
   z-index: 10000;
   overflow: hidden;
   animation: fadeIn 0.5s ease-out;

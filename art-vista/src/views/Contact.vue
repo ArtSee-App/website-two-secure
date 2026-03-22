@@ -10,12 +10,19 @@
         </p>
       </div>
       
+      <!-- Museum highlight banner -->
+      <div class="museum-banner" v-if="highlightedCategory === 'museums'">
+        <button class="banner-close" @click="highlightedCategory = null" aria-label="Close">&#x2715;</button>
+        <p class="museum-banner-text">{{ streamedText }}<span class="typing-cursor" v-if="isTyping">|</span></p>
+      </div>
+
       <!-- Contact Buttons -->
-      <div class="contact-buttons">
+      <div class="contact-buttons" :class="{ 'has-highlight': highlightedCategory }">
         <button
           v-for="(option, index) in contactOptions"
           :key="index"
           class="contact-button"
+          :class="{ highlighted: option.category === highlightedCategory }"
           @click="handleContact(option.category)"
         >
           <span class="emoji">{{ option.emoji }}</span>
@@ -43,6 +50,9 @@ export default {
   },
   data() {
     return {
+      highlightedCategory: null,
+      streamedText: '',
+      isTyping: false,
       contactOptions: [
         {
           emoji: "🎨",
@@ -95,7 +105,34 @@ export default {
       ]
     };
   },
+  mounted() {
+    if (this.$route.query.highlight) {
+      this.highlightedCategory = this.$route.query.highlight;
+      if (this.highlightedCategory === 'museums') {
+        this.startTypewriter();
+      }
+    }
+  },
   methods: {
+    startTypewriter() {
+      const variants = [
+        "ArtVista makes your collection interactive. Visitors scan artworks with their phone to get instant information, artist context, and history. No hardware required. Pricing is tailored to your institution. Reach out below and we will get back to you.",
+        "Turn your museum into a smart experience. With ArtVista, every artwork becomes a touchpoint. Visitors scan, learn, and engage without any extra devices. We work with institutions of all sizes and offer flexible pricing. Contact us to get started.",
+        "ArtVista gives your visitors a richer experience without changing anything physical. A simple scan on their phone unlocks the story behind every piece. Setup is fast, pricing is flexible. Let us know your institution and we will take it from there.",
+        "Your collection deserves to be experienced fully. ArtVista lets visitors scan any artwork and instantly access its context, history, and artist. No hardware, no friction. We tailor pricing to your size. Drop us a message and we will follow up."
+      ];
+      const fullText = variants[Math.floor(Math.random() * variants.length)];
+      let i = 0;
+      this.isTyping = true;
+      const interval = setInterval(() => {
+        this.streamedText += fullText[i];
+        i++;
+        if (i >= fullText.length) {
+          clearInterval(interval);
+          this.isTyping = false;
+        }
+      }, 22);
+    },
     handleContact(category) {
       const recipient = 'contact@artvista.app';
       let body = '';
@@ -291,6 +328,67 @@ main {
 .contact-button.active {
   transform: scale(1.05);
   background: rgba(255, 255, 255, 0.2);
+}
+
+.contact-button.highlighted {
+  box-shadow: 0 0 0 2px #1D88F0, 0 0 20px 4px rgba(29, 136, 240, 0.5);
+  background: rgba(29, 136, 240, 0.15);
+}
+
+.contact-buttons.has-highlight .contact-button:not(.highlighted) {
+  opacity: 0.3;
+  filter: blur(1px);
+  pointer-events: none;
+}
+
+/* Museum banner */
+.museum-banner {
+  position: relative;
+  max-width: 680px;
+  margin: 0 auto 40px;
+  padding: 32px 36px;
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  text-align: left;
+}
+
+.banner-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  transition: color 0.2s ease;
+}
+
+.banner-close:hover {
+  color: white;
+}
+
+.museum-banner-text {
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.7;
+  margin: 0;
+  min-height: 4em;
+}
+
+.typing-cursor {
+  display: inline-block;
+  color: #1D88F0;
+  font-weight: 300;
+  animation: blink 0.7s step-end infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
 }
 
 /* Emoji Styling */

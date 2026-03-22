@@ -38,7 +38,7 @@
           </div>
         </div>
         <div class="iphone-container">
-          <img src="@/assets/Website Image (3).png" alt="ArtVista Website on a screen" class="iphone-image" />
+          <img src="@/assets/Website Image (3).png" alt="ArtVista Website on a screen" class="iphone-image" loading="eager" fetchpriority="high" />
         </div>
       </div>
 

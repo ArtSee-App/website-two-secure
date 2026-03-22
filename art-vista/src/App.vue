@@ -4,12 +4,14 @@
       <LoadingScreen v-if="isLoading" />
     </transition>
     <router-view v-show="!isLoading" />
+    <StickyCtaBar />
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue';
 import LoadingScreen from './components/LoadingScreen.vue';
+import StickyCtaBar from './components/StickyCtaBar.vue';
 
 const isLoading = ref(true);
 
@@ -21,8 +23,6 @@ onMounted(() => {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
 /*
   This transition applies to the LoadingScreen as it's removed from the DOM.
   The 'v-if' on LoadingScreen triggers the leave animation.
@@ -56,7 +56,6 @@ html {
   padding: 0 20px;
   box-sizing: border-box;
   min-height: 100vh;
-  overflow-x: hidden;
   position: relative;
 }
 

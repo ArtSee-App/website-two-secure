@@ -443,13 +443,14 @@ main {
 
   .contact-buttons {
     flex-direction: column;
+    align-items: center;
     gap: 15px; /* Further reduced gap for better spacing on mobile */
-    padding: 10px 0; /* Adjusted padding for mobile view */
+    padding: 10px 15px; /* Adjusted padding for mobile view */
   }
 
   .contact-button {
     width: 100%;
-    max-width: 350px; /* Increased max-width for better mobile display */
+    max-width: 100%;
     padding: 20px 15px; /* Adjusted padding for mobile */
     font-size: 1rem; /* Adjusted font size for mobile */
     min-height: 120px; /* Reduced min-height for mobile */

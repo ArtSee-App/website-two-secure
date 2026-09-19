@@ -188,8 +188,26 @@ const artists = requireArtists.keys().map(key => requireArtists(key));
     max-width: none;
   }
 
-  .phones__slab {
+  /* One slab, still at 45°, sitting between and behind the two phones, a little low */
+  /* Big square: only its top corner shows between the phones; the rest runs off the
+     bottom of the panel. The centre is pushed down by half the diagonal (side × 0.707)
+     so the top corner stays put while the square grows. */
+  .phones__slab--left {
+    left: 50%;
+    top: calc(13% + 64vw);
+    width: 90vw;
+    height: 90vw;
+    border-radius: 48px;
+    z-index: 0;
+  }
+
+  .phones__slab--right {
     display: none;
+  }
+
+  .phone,
+  :deep(.is-active) .phone {
+    z-index: 1;
   }
 }
 </style>

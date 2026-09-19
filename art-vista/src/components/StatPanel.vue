@@ -98,7 +98,9 @@ const displayValue = computed(() => (props.value === null ? props.text : formatN
 function runCounter() {
   if (props.value === null) return;
   cancelAnimationFrame(rafId);
-  showSuffix.value = false;
+  // Desktop: the "+" lands after the count finishes. Stacked (mobile) mode: keep it
+  // on from the start so the figure doesn't jump when it appears.
+  showSuffix.value = hsStatic.value && !!props.suffix;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     current.value = props.value;
     showSuffix.value = !!props.suffix;

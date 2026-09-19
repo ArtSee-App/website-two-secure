@@ -408,6 +408,8 @@ export default {
     },
 
     initResizeObserver() {
+      // Drop the previous observer so we never stack one per loaded image
+      this.destroyResizeObserver();
       const img = this.$refs.demoImage;
       if (img) {
         this.resizeObserver = new ResizeObserver(() => {
@@ -479,7 +481,6 @@ export default {
 .playground-card {
   background: rgba(0, 0, 0, 0.3);
   border-radius: 24px;
-  backdrop-filter: blur(10px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   padding: 32px;
   box-sizing: border-box;
@@ -492,7 +493,7 @@ export default {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: url("~@/assets/Bubbles (1).png");
+  background-image: var(--bubbles-teal-magenta);
   background-size: cover;
   background-position: center;
   z-index: -1;

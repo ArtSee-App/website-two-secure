@@ -1,62 +1,74 @@
 // netlify/functions/save_email.js
 const fetch = require('node-fetch');
 
+const CORS_HEADERS = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type'
+};
+
+const jsonResponse = (statusCode, body) => ({
+  statusCode,
+  headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' },
+  body: JSON.stringify(body)
+});
+
 exports.handler = async (event) => {
-  // 1️⃣ Handle CORS preflight
+  // 1️⃣ CORS preflight
   if (event.httpMethod === 'OPTIONS') {
-    return {
-      statusCode: 200,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type'
-      },
-      body: ''
-    };
+    return { statusCode: 204, headers: CORS_HEADERS, body: '' };
   }
 
-  // 2️⃣ Only GET is allowed from here on
-  if (event.httpMethod !== 'GET') {
+  if (event.httpMethod !== 'GET' && event.httpMethod !== 'POST') {
     return {
       statusCode: 405,
-      headers: { Allow: 'GET, OPTIONS' },
+      headers: { ...CORS_HEADERS, Allow: 'GET, POST, OPTIONS' },
       body: 'Method Not Allowed'
     };
   }
 
-  // 3️⃣ Extract token + email_to_save from the query string
-  const { token, email_to_save } = event.queryStringParameters || {};
+  // 2️⃣ Accept the email as ?email_to_save=… (GET) or as JSON { email_to_save } (POST)
+  const query = event.queryStringParameters || {};
+  let email = query.email_to_save;
+  let clientToken = query.token;
 
-  if (!token) {
-    return { statusCode: 400, body: 'Missing token' };
+  if (event.httpMethod === 'POST' && event.body) {
+    try {
+      const parsed = JSON.parse(event.body);
+      email = parsed.email_to_save || email;
+      clientToken = parsed.token || clientToken;
+    } catch (_err) {
+      return jsonResponse(400, { error: 'Invalid JSON body' });
+    }
   }
-  if (!email_to_save) {
-    return { statusCode: 400, body: 'Missing email_to_save' };
+
+  if (!email) {
+    return jsonResponse(400, { error: 'Missing email_to_save' });
   }
 
   try {
-    // 4️⃣ Forward the GET to the real ArtVista backend
-    const BASE = process.env.ARTVISTA_API_BASE_URL; // e.g. "https://api.artvista.com"
-    const url = `${BASE}/save_email/?token=${encodeURIComponent(token)}&email_to_save=${encodeURIComponent(email_to_save)}`;
+    const BASE = process.env.ARTVISTA_API_BASE_URL;
+    const SECRET = process.env.ARTVISTA_SECRET_TOKEN;
+
+    // 3️⃣ Same auth flow as analyze.js / search.js: exchange the server-side secret
+    //    for a short-lived id_token. A token supplied by the caller is still honoured
+    //    for backwards compatibility.
+    let token = clientToken;
+    if (!token) {
+      const tokRes = await fetch(`${BASE}/get_custom_token/?token=${SECRET}`);
+      if (!tokRes.ok) throw new Error('Failed to fetch token');
+      ({ id_token: token } = await tokRes.json());
+    }
+
+    // 4️⃣ Forward to the ArtVista backend
+    const url = `${BASE}/save_email/?token=${encodeURIComponent(token)}&email_to_save=${encodeURIComponent(email)}`;
     const apiRes = await fetch(url);
-    const data = await apiRes.json();
+    const data = await apiRes.json().catch(() => ({}));
 
-    // 5️⃣ Propagate status + CORS header
-    return {
-      statusCode: apiRes.status,
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      },
-      body: JSON.stringify(data)
-    };
-
+    // 5️⃣ Propagate status
+    return jsonResponse(apiRes.status, data);
   } catch (err) {
     console.error(err);
-    return {
-      statusCode: 500,
-      headers: { 'Access-Control-Allow-Origin': '*' },
-      body: JSON.stringify({ error: err.message })
-    };
+    return jsonResponse(500, { error: err.message });
   }
 };

@@ -1,59 +1,34 @@
 <template>
-  <div id="app">
-    <transition name="fade">
-      <LoadingScreen v-if="isLoading" />
-    </transition>
-    <router-view v-show="!isLoading" />
-    <StickyCtaBar />
+  <div class="app-shell">
+    <!-- Intro overlay; the page renders underneath so the logo can fly to the header -->
+    <LoadingScreen v-if="introState !== 'finished'" />
+    <router-view />
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
 import LoadingScreen from './components/LoadingScreen.vue';
-import StickyCtaBar from './components/StickyCtaBar.vue';
-
-const isLoading = ref(true);
-
-onMounted(() => {
-  setTimeout(() => {
-    isLoading.value = false;
-  }, 2500); // Wait for 2 seconds before starting the fade-out.
-});
+import { introState } from '@/composables/useIntro';
 </script>
 
 <style>
-/*
-  This transition applies to the LoadingScreen as it's removed from the DOM.
-  The 'v-if' on LoadingScreen triggers the leave animation.
-*/
-.fade-leave-active {
-  transition: opacity 1.2s ease-in-out;
-}
-
-.fade-leave-to {
-  opacity: 0;
-}
-
 body,
 html {
   font-family: 'Inter', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #1a0933;
   color: black;
   scrollbar-width: thin;
   scrollbar-color: #6f2da8 #1a0933;
   min-height: 100%;
   width: 100%;
-  overflow-x: hidden;
 }
 
 #app {
   width: 100%;
   max-width: 1600px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 40px;
   box-sizing: border-box;
   min-height: 100vh;
   position: relative;
@@ -82,7 +57,7 @@ body::-webkit-scrollbar-thumb:hover {
 
 @media (max-width: 768px) {
   #app {
-    padding: 0 10px;
+    padding: 0 20px;
     width: 100%;
   }
 }

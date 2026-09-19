@@ -1,4 +1,25 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+/* Fonts (Inter + Judson) are loaded once from public/index.html. */
+
+:root {
+  /*
+   * Soft colour "bubbles" used as card backgrounds.
+   * These replace three 2.5 MB PNGs (Bubbles*.png) with pure CSS gradients.
+   */
+  --bubbles-blue-purple:
+    radial-gradient(75% 65% at 12% 12%, rgba(191, 3, 176, 0.5) 0%, rgba(191, 3, 176, 0) 72%),
+    radial-gradient(80% 85% at 5% 95%, rgba(29, 136, 240, 0.7) 0%, rgba(29, 136, 240, 0) 72%),
+    radial-gradient(75% 95% at 92% 60%, rgba(205, 25, 75, 0.6) 0%, rgba(205, 25, 75, 0) 72%);
+
+  --bubbles-teal-magenta:
+    radial-gradient(70% 70% at 0% 15%, rgba(200, 205, 60, 0.5) 0%, rgba(200, 205, 60, 0) 72%),
+    radial-gradient(65% 80% at 42% 45%, rgba(30, 180, 165, 0.5) 0%, rgba(30, 180, 165, 0) 72%),
+    radial-gradient(70% 90% at 98% 45%, rgba(191, 3, 176, 0.6) 0%, rgba(191, 3, 176, 0) 72%);
+
+  --bubbles-gold:
+    radial-gradient(75% 110% at 50% 30%, rgba(205, 170, 70, 0.5) 0%, rgba(205, 170, 70, 0) 72%),
+    radial-gradient(60% 80% at 0% 85%, rgba(230, 228, 240, 0.5) 0%, rgba(230, 228, 240, 0) 72%),
+    radial-gradient(55% 90% at 100% 35%, rgba(230, 228, 240, 0.45) 0%, rgba(230, 228, 240, 0) 72%);
+}
 
 /* Reset and base styles */
 * {
@@ -8,13 +29,55 @@
 }
 
 /* Root and body styles */
+html {
+  /* Solid colour on the root: this is what macOS shows when you overscroll
+     (rubber-band). A gradient alone leaves background-color transparent → white. */
+  background-color: #00081E;
+}
+
 html, body {
   font-family: 'Inter', sans-serif;
-  background: linear-gradient(180deg, #00081E 0%, #20002e 100%);
   color: white;
   min-height: 100vh;
   width: 100%;
+}
+
+/* Clip horizontal overflow at the viewport only. Putting overflow-x on <body>
+   as well turns body into a scroll container and breaks position: sticky. */
+html {
   overflow-x: hidden;
+}
+
+/* Native scroll snapping for the panel sections on the home page.
+   Enabled by HorizontalScroll only on desktop / without reduced motion. */
+html.snap-scroll {
+  scroll-snap-type: y mandatory;
+  scroll-padding-top: 80px; /* fixed header + breathing room */
+}
+
+/* After the panel sections the page keeps stepping: each `.snap-page` is a snap
+   area (the reviews screen, then the audience cards + footer). The last one is
+   taller than the viewport, so once you are inside it scrolling is free again. */
+.snap-page {
+  scroll-snap-align: start;
+}
+
+/* Sections below the fold are laid out/painted only when they come near the
+   viewport. The intrinsic size keeps the scrollbar stable before that. */
+.page-rest > * {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 600px;
+}
+
+/* Exception: the reviews screen paints glows that bleed outside its box.
+   content-visibility implies paint containment, which would clip them. */
+.page-rest > .proof {
+  content-visibility: visible;
+  contain: none;
+}
+
+body {
+  background: linear-gradient(180deg, #00081E 0%, #20002e 100%);
 }
 
 /* App container */
@@ -72,4 +135,49 @@ body::-webkit-scrollbar-thumb {
 
 body::-webkit-scrollbar-thumb:hover {
   background-color: #5a2299;
+}
+
+/* Inline brand icons (BrandIcon.vue); same box as the FontAwesome SVGs they replaced */
+.svg-inline--fa {
+  display: inline-block;
+  height: 1em;
+  overflow: visible;
+  vertical-align: -0.125em;
+  box-sizing: content-box;
+}
+
+/* ---- weak-device degrade path (html.low-power, set in main.js): decorative effects only, no functionality/layout change ---- */
+/* Stat scenes: no float, no per-image blur (saturate/brightness kept) */
+html.low-power .stat-panel__frame img {
+  animation: none;
+  /* same terms as StatPanel.vue minus the blur() */
+  filter: saturate(calc(0.65 + var(--depth, 1) * 0.7)) brightness(calc(0.5 + var(--depth, 1) * 0.58)) contrast(calc(0.95 + var(--depth, 1) * 0.1));
+}
+/* Stat scenes: static radial halo in the image's own colour instead of a blurred, breathing layer */
+html.low-power .stat-panel__frame::before {
+  animation: none;
+  filter: none;
+  inset: -14px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, var(--glow, #7a3fd0) 0%, transparent 100%);
+}
+html.low-power .stat-panel.is-active .stat-panel__frame::before {
+  opacity: calc(0.2 + var(--depth, 1) * 0.25); /* fixed mid-breath opacity */
+}
+/* Header: static hairline gradient, static unblurred logo halo */
+html.low-power .hairline__grad {
+  animation: none;
+}
+html.low-power .logo-glow::before {
+  animation: none;
+  filter: none;
+  inset: -10px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(120, 60, 220, 0.75), transparent);
+  opacity: 0.6;
+  transform: none;
+}
+/* Scroll hint: no bob */
+html.low-power .hscroll__hint {
+  animation: none;
 }

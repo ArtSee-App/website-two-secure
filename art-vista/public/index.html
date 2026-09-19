@@ -1,14 +1,19 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="favicon.png" />
+    <meta name="description" content="ArtVista is the art companion app that identifies artworks from a photo and tells their story. A better alternative to audio guides." />
+    <link rel="icon" href="/favicon.png" sizes="64x64" />
     <title>ArtVista</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
+    <!-- The intro logo is the first thing on screen: have it in flight before the JS runs -->
+    <link rel="preload" as="image" href="/logo.webp" fetchpriority="high" />
+    <!-- Inter (body) + Judson (logo text) in a single request, loaded without blocking render (display=swap) -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Judson&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Judson&display=swap" /></noscript>
   </head>
   <body>
     <noscript>

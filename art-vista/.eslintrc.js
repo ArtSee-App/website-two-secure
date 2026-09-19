@@ -1,7 +1,9 @@
 module.exports = {
   root: true,
   env: {
-    node: true
+    node: true,
+    // Allows defineProps/defineEmits in <script setup> without imports
+    "vue/setup-compiler-macros": true
   },
   extends: [
     "plugin:vue/vue3-essential",

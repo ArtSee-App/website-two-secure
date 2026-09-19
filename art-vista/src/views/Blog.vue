@@ -19,7 +19,7 @@
           <p v-else class="success-message">
             Thank you for subscribing! We'll keep you updated.
           </p>
-          <form class="newsletter-form" @submit.prevent="handleSubmit">
+          <form class="newsletter-form" @submit.prevent="subscribe">
             <div class="form-group" v-if="!isSubscribed">
               <input
                 v-model="email"
@@ -28,7 +28,7 @@
                 required
                 class="email-input"
               />
-              <button type="submit" class="submit-button">
+              <button type="submit" class="submit-button" :disabled="isSubmitting">
                 Subscribe
               </button>
             </div>
@@ -71,34 +71,14 @@
 import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
 
+import { useNewsletter } from '@/composables/useNewsletter'
+
 export default {
   name: 'Blog',
   components: { Header, Footer },
-  data() {
-    return {
-      isSubscribed: false,
-      email: ''
-    }
-  },
-  methods: {
-    async handleSubmit() {
-      try {
-        const res = await fetch('/.netlify/functions/save_email', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email_to_save: this.email })
-        })
-        if (!res.ok) {
-          const err = await res.json()
-          throw new Error(err.message || res.statusText)
-        }
-        this.isSubscribed = true
-        this.email = ''
-      } catch (err) {
-        console.error('Subscription error:', err)
-        alert('An error occurred. Please try again.')
-      }
-    }
+  setup() {
+    // Same signup flow as the Hero newsletter (POST to the save_email function)
+    return useNewsletter()
   }
 }
 </script>

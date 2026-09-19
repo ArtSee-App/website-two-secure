@@ -1,12 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../views/Home.vue';
-import Api from '@/views/Api.vue';
-import About from '@/views/About.vue';
-import Contact from '@/views/Contact.vue';
-import Terms from '@/views/Terms.vue';
-import Blog from '@/views/Blog.vue';
-import BlogPostDetail from '@/views/BlogPostDetail.vue';
 
+// Only the Home view is in the main bundle; every other view is code-split
+// into its own chunk and loaded on first navigation.
 const routes = [
   {
     path: '/',
@@ -16,33 +12,33 @@ const routes = [
   {
     path: '/api',
     name: 'Api',
-    component: Api
+    component: () => import('@/views/Api.vue')
   },
   {
     path: '/blog',
     name: 'Blog',
-    component: Blog
+    component: () => import('@/views/Blog.vue')
   },
   {
     path: '/blog/:slug',
     name: 'BlogPostDetail',
-    component: BlogPostDetail,
+    component: () => import('@/views/BlogPostDetail.vue'),
     props: true
   },
   {
     path: '/about',
     name: 'About',
-    component: About
+    component: () => import('@/views/About.vue')
   },
   {
     path: '/Contact',
     name: 'Contact',
-    component: Contact
+    component: () => import('@/views/Contact.vue')
   },
   {
     path: '/terms',
     name: 'Terms',
-    component: Terms
+    component: () => import('@/views/Terms.vue')
   },
   // Redirect any unknown paths to Home
   {

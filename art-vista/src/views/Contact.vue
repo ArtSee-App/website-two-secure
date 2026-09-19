@@ -53,6 +53,7 @@ export default {
       highlightedCategory: null,
       streamedText: '',
       isTyping: false,
+      typewriterInterval: null,
       contactOptions: [
         {
           emoji: "🎨",
@@ -105,6 +106,10 @@ export default {
       ]
     };
   },
+  beforeUnmount() {
+    // Stop the typewriter if the user navigates away mid-animation
+    clearInterval(this.typewriterInterval);
+  },
   mounted() {
     if (this.$route.query.highlight) {
       this.highlightedCategory = this.$route.query.highlight;
@@ -124,11 +129,11 @@ export default {
       const fullText = variants[Math.floor(Math.random() * variants.length)];
       let i = 0;
       this.isTyping = true;
-      const interval = setInterval(() => {
+      this.typewriterInterval = setInterval(() => {
         this.streamedText += fullText[i];
         i++;
         if (i >= fullText.length) {
-          clearInterval(interval);
+          clearInterval(this.typewriterInterval);
           this.isTyping = false;
         }
       }, 22);

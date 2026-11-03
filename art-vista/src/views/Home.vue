@@ -9,8 +9,7 @@
     <Stats />
     <div class="page-rest">
       <!-- Own full-height screen: the typed reviews and the video cards never share the viewport -->
-      <section ref="proofEl" class="proof snap-page" data-snap-page aria-label="Reviews and newsletter">
-        <Reviews />
+      <section ref="proofEl" class="proof snap-page" data-snap-page aria-label="Newsletter">
         <Newsletter />
       </section>
       <div class="snap-page" data-snap-page>
@@ -37,7 +36,6 @@ import Stats from '@/components/Stats.vue'
 import ForArtEnthusiasts from '@/components/ForArtEnthusiasts.vue'
 import ForArtists from '@/components/ForArtists.vue'
 import ForMuseums from '@/components/ForMuseums.vue'
-import Reviews from '@/components/Reviews.vue'
 import Footer from '@/components/Footer.vue'
 
 export default {
@@ -52,7 +50,6 @@ export default {
     ForArtEnthusiasts,
     ForArtists,
     ForMuseums,
-    Reviews,
     Footer
   },
   data() {
